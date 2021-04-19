@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ResShowUser } from '../service-interface/interface-user';
@@ -11,7 +11,7 @@ export class ApiServiceService {
 
 apiUrl = environment.httpApi;
 
-  constructor(private thhpCli: HttpClient) { }
+  constructor() { }
 
   // public showUser(): Observable<ResShowUser> {
   //   return this.httpClient.get<ResShowUser>(`${this.apiUrl}/api/user/get`);

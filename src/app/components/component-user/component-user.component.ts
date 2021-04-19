@@ -34,15 +34,15 @@ export class ComponentUserComponent implements OnInit {
 
   }
 
-  loadDataUser() {
-    this.apiUserService.showUser().subscribe(
-      (res) => {
-        this.DataUser = res;
-        console.log('res ', this.DataUser);
-        console.log('this is log ------>>>', this.DataUser.data);
-      }
-    );
-  }
+  // loadDataUser() {
+  //   this.apiUserService.showUser().subscribe(
+  //     (res) => {
+  //       this.DataUser = res;
+  //       console.log('res ', this.DataUser);
+  //       console.log('this is log ------>>>', this.DataUser.data);
+  //     }
+  //   );
+  // }
 
   openLg(content) {
     this.modalService.open(content, { size: 'lg' });
