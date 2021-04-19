@@ -29,7 +29,7 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>ชื่อ-นามสกุล</th>
-                                        <th></th>
+                                        <th style="width: 150px"></th>
                                         <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
@@ -37,7 +37,9 @@
                                     <tr *ngFor="let item of DataUser.data; let i = index">
                                         <td>{{i+1}}</td>
                                         <td>{{item.firstName+' '+item.lastName}}</td>
-                                        <td></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteUser(item.id)">แก้ไขข้อมูล</button></td>
+
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
                                     </tr>
@@ -108,6 +110,54 @@
             <!-- {{ngMember|json}} -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="createUer()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="content">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสมาชิก</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>ชื่อ</label>
+                            <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
+                                [(ngModel)]="ngUpdate.userName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>ชื่อ</label>
+                            <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
+                                [(ngModel)]="ngUpdate.lastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>ชื่อ</label>
+                            <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
+                                [(ngModel)]="ngUpdate.userName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- {{ngMember|json}} -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="updateUser()">Save</button>
             </div>
         </div>
     </div>

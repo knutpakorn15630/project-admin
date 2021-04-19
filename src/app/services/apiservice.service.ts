@@ -4,9 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ReqLogins, ResLogins } from '../service-interface/interface-login';
 import { ReqReport, ResReport } from '../service-interface/interface-report';
-import { ReqCreateUser, ResCreateUser, ResShowUser } from '../service-interface/interface-user';
+import { ReqCreateUser, ReqLogoutUser, ReqUpdateUser, ResCreateUser, ResShowUser } from '../service-interface/interface-user';
 import { ReqRefreshToken, ResRefreshToken } from '../service-interface/token';
-// import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +24,10 @@ export class ApiserviceService {
     return this.httpApiClient.post<ResCreateUser>(`${this.apiUrl}/api/user/create`, body);
   }
 
+  public updateUser(body: ReqUpdateUser): Observable<any> {
+    return this.httpApiClient.post<any>(`${this.apiUrl}/api/user/update`, body);
+  }
+
   public deleteUser(id: number): Observable<any> {
     return this.httpApiClient.delete<any>(`${this.apiUrl}/api/user/delete/${id}`);
   }
@@ -41,8 +44,7 @@ export class ApiserviceService {
     return this.httpApiClient.post<ResRefreshToken>(`${this.apiUrl}/api/user/token`, body);
   }
 
-  // public showUser(): Observable<ResShowUser> {
-  //   return this.httpCliet.get(`${this.apiUrl}/api/user/get`);
-  // }
-
+  public logoutUser(body: ReqLogoutUser): Observable<any> {
+    return this.httpApiClient.post<any>(`${this.apiUrl}/api/user/logout`, body);
+  }
 }

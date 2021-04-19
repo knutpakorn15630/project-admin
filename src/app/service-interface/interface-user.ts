@@ -44,3 +44,25 @@ export interface ResCreateUser {
 export interface ReqDeleteUser {
     id: number;
 }
+
+
+// UpdateUser-------------------------
+
+
+export interface ReqUpdateUser {
+    token: string;
+    id: number;
+    password: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    passwordNew: string;
+}
+
+
+// Logout --------------------------
+
+
+export interface ReqLogoutUser {
+    token: string;
+}

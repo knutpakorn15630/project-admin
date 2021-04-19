@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ReqCreateUser, ResShowUser } from 'src/app/service-interface/interface-user';
+import { ReqCreateUser, ReqUpdateUser, ResShowUser } from 'src/app/service-interface/interface-user';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 
 import Swal from 'sweetalert2';
@@ -23,6 +23,16 @@ export class ComponentUserComponent implements OnInit {
     lastName: '',
     user: '',
     pass: '',
+  };
+
+  ngUpdate = {
+    token: '',
+    id: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
+    passwordNew: '',
   };
 
   Toast = Swal.mixin({
@@ -91,6 +101,23 @@ export class ComponentUserComponent implements OnInit {
     }
   }
 
+  updateUser() {
+    const body: ReqUpdateUser = {
+      token: this.ngUpdate.token,
+      id: Number(this.ngUpdate.id),
+      password: this.ngUpdate.password,
+      firstName: this.ngUpdate.firstName,
+      lastName: this.ngUpdate.lastName,
+      userName: this.ngUpdate.userName,
+      passwordNew: this.ngUpdate.passwordNew
+    };
+    this.callApi.updateUser(body).subscribe(
+      (res) => {
+        this.loadDataUser();
+      }
+    );
+  }
+
   deleteUser(id: number) {
     this.callApi.deleteUser(id).subscribe(
       (res) => {
@@ -124,5 +151,7 @@ export class ComponentUserComponent implements OnInit {
   openLg() {
     $('#content').modal('show');
   }
+
+
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ResLogins } from 'src/app/service-interface/interface-login';
+import { ReqLogoutUser } from 'src/app/service-interface/interface-user';
 import { ReqRefreshToken } from 'src/app/service-interface/token';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginTokenService } from 'src/app/services/service-login-token.service';
@@ -29,7 +31,11 @@ export class DashboardComponent implements OnInit {
 
   DataToken: ResLogins;
   // tslint:disable-next-line:max-line-length
-  constructor(private serciceToken: ServiceLoginTokenService, private callApi: ApiserviceService, private serviceLogin: ServiceLoginService) {
+  constructor(
+    private serciceToken: ServiceLoginTokenService,
+    private callApi: ApiserviceService,
+    private serviceLogin: ServiceLoginService,
+    public router: Router) {
     this.DataToken = this.serciceToken.getToken();
   }
 
@@ -38,7 +44,20 @@ export class DashboardComponent implements OnInit {
     // setInterval(this.resetToken, 10000);
     setInterval(() => {
       this.resetToken();
-      }, 1800000);
+    }, 1800000);
+  }
+
+  logout() {
+    const body: ReqLogoutUser = {
+      token: this.DataToken.accessToken
+    };
+    this.callApi.logoutUser(body).subscribe(
+      (res) => {
+        console.log(`logout ${this.DataToken.accessToken}`);
+        this.serviceLogin.clearLogin();
+        this.router.navigateByUrl('login');
+      }
+    );
   }
 
   resetToken() {
