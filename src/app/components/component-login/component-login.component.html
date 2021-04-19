@@ -1,1 +1,42 @@
-<p>component-login works!</p>
+<div>
+    <img class="wave" src="assets/login/img/wave.png">
+</div>
+
+<div class="container">
+    <div class="img">
+        <img src="assets/login/img/bg.svg" style="z-index: 99999;">
+    </div>
+    <div class="login-content">
+        <div class="form">
+            <img src="assets/login/img/avatar.svg">
+            <h2 class="title">Welcome</h2>
+            <div class="input-div one " style="margin-top: 5px;">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <h5 *ngIf="!input.input1.isFocus && input.input1.text.length === 0" >ชื่อผู้ใช้</h5>
+                    <input type="text" class="input" [(ngModel)]="input.input1.text" [(ngModel)]="LoginCreate.UserName">
+                    <!-- [(ngModel)]="LoginCreate.UserName" [(ngModel)]="input.input1.text" -->
+                </div>
+            </div>
+            <div class="input-div pass ">
+                <div class="i">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <h5 *ngIf="!input.input2.isFocus && input.input2.text.length === 0">รหัสผ่าน</h5>
+                    <input type="password" class="input" [(ngModel)]="input.input2.text" [(ngModel)]="LoginCreate.password">
+                </div>
+            </div>
+            <div class="alert alert-warning" role="alert" id="alert" style="display: none;">
+                This is a warning alert—check it out!
+            </div>
+            <!-- {{LoginCreate |json}} -->
+            <input type="submit" class="btn" value="เข้าสู่ระบบ" (click)="Logined()">
+        </div>
+    </div>
+</div>
+
+
+<!-- (focus)="focusOn(1)" (focusout)="focusOut(1)" -->

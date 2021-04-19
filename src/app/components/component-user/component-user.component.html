@@ -23,8 +23,8 @@
                 <div class="col-12">
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
-                        <div class="card-body p-0"> 
-                            <table class="table table-striped   ">
+                        <div class="card-body p-0">
+                            <table class="table table-striped" *ngIf="DataUser && DataUser.data">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -43,19 +43,13 @@
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataUser || !DataUser.data || DataUser.data.length == 0">
-                                    <tr >
+                                    <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <!-- .card-footer -->
-                        <div class="card-footer clearfix">
-                            <span class="pagination pagination-sm m-0 float-right">
-                                <ngb-pagination [collectionSize]="50" [(page)]="page"></ngb-pagination>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -78,16 +72,16 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">ชื่อ</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อ..."
-                                name="name" [(ngModel)]="ngMember.name">
+                            <label>ชื่อ</label>
+                            <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
+                                [(ngModel)]="ngMember.name">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">นามสกุล</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="นามสกุล..."
-                                name="lastName" [(ngModel)]="ngMember.lastName">
+                            <label>นามสกุล</label>
+                            <input type="text" class="form-control" placeholder="นามสกุล..." name="lastName"
+                                [(ngModel)]="ngMember.lastName">
                         </div>
                     </div>
                 </div>
@@ -96,16 +90,16 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Username</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username..."
-                                name="username" [(ngModel)]="ngMember.user">
+                            <label>Username</label>
+                            <input type="text" class="form-control" placeholder="Username..." name="username"
+                                [(ngModel)]="ngMember.user">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                placeholder="Password..." name="password" [(ngModel)]="ngMember.pass">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password..." name="password"
+                                [(ngModel)]="ngMember.pass">
                         </div>
                     </div>
                 </div>

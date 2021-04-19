@@ -11,6 +11,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
+    path: 'login',
+    component: ComponentLoginComponent
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
@@ -35,11 +39,11 @@ const routes: Routes = [
         component: ComponentDeliveryComponent
       }
     ]
-  },
-  {
-    path: 'login',
-    component: ComponentLoginComponent
   }
+  // {
+  //   path: 'login',
+  //   component: ComponentLoginComponent
+  // }
 ];
 
 @NgModule({

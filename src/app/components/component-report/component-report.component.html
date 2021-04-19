@@ -24,7 +24,7 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped" *ngIf="DataReport">
+                            <table class="table table-striped" *ngIf="DataReport || DataReport.data">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -80,9 +80,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">หัวข้อ</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เรื่อง..."
-                                    name="name" [(ngModel)]="ngMember2.title">
+                                <label>หัวข้อ</label>
+                                <input type="text" class="form-control" placeholder="เรื่อง..." name="name"
+                                    [(ngModel)]="ngMember2.title">
                             </div>
                         </div>
 
@@ -90,18 +90,18 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">วัสดุ</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="วัสดุ..."
-                                    name="username" [(ngModel)]="ngMember2.material">
+                                <label>วัสดุ</label>
+                                <input type="text" class="form-control" placeholder="วัสดุ..." name="username"
+                                    [(ngModel)]="ngMember2.material">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">ชื่อพนักงาน</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1"
-                                    placeholder="ชื่อ-นามสกุล" name="lastName" [(ngModel)]="ngMember2.ResponsibleName">
+                                <label>ชื่อพนักงาน</label>
+                                <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล" name="lastName"
+                                    [(ngModel)]="ngMember2.ResponsibleName">
                             </div>
                         </div>
                     </div>

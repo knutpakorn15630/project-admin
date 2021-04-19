@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ReqCreateUser, ResShowUser } from 'src/app/service-interface/interface-user';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
+
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -16,6 +17,7 @@ export class ComponentUserComponent implements OnInit {
   page = 4;
 
   DataUser: ResShowUser;
+
   ngMember = {
     name: '',
     lastName: '',
@@ -35,8 +37,13 @@ export class ComponentUserComponent implements OnInit {
     }
   });
 
-  // tslint:disable-next-line:max-line-length
-  constructor(config: NgbPaginationConfig, config2: NgbModalConfig, private modalService: NgbModal, private callApi: ApiserviceService) {
+
+  constructor(
+    config: NgbPaginationConfig,
+    config2: NgbModalConfig,
+    private callApi: ApiserviceService,
+
+  ) {
     config.size = 'sm';
     config.boundaryLinks = true;
     config2.backdrop = 'static';
@@ -51,7 +58,6 @@ export class ComponentUserComponent implements OnInit {
     this.callApi.showUser().subscribe(
       (res) => {
         this.DataUser = res;
-        console.log('-----------------------------', res);
       }
     );
   }
