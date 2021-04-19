@@ -1,1 +1,115 @@
-<p>component-report works!</p>
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1>รายงาน</h1>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-block bg-teal float-right"
+                        (click)="openLg()">เพิ่มข้อมูล</button>
+                    <!-- <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Calendar</li>
+                    </ol> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-outline card-teal">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped" *ngIf="DataReport">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>หัวข้อ</th>
+                                        <th>วัสดุ</th>
+                                        <th>รายงานชื่อ</th>
+                                        <th style="width: 150px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="DataReport || DataReport.data || DataReport.data.length > 0">
+                                    <tr></tr>
+                                    <tr *ngFor="let report of DataReport.data; let i = index">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{report.title}}</td>
+                                        <td>{{report.material}}</td>
+                                        <td>{{report.ResponsibleName}}</td>
+                                        <td><button type="button" class="btn btn-block bg-teal">ลบข้อมูล</button></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!DataReport || !DataReport.data || DataReport.data.length === 0">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <!-- .card-footer -->
+                        <div class="card-footer clearfix">
+                            <span class="pagination pagination-sm m-0 float-right">
+                                <ngb-pagination [collectionSize]="50" [(page)]="ngPang.Pang"></ngb-pagination>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="content">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสมาชิก</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">หัวข้อ</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เรื่อง..."
+                                    name="name" [(ngModel)]="ngMember2.title">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">วัสดุ</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="วัสดุ..."
+                                    name="username" [(ngModel)]="ngMember2.material">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">ชื่อพนักงาน</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1"
+                                    placeholder="ชื่อ-นามสกุล" name="lastName" [(ngModel)]="ngMember2.ResponsibleName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ngMember2|json}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>

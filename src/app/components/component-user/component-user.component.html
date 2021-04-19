@@ -1,4 +1,4 @@
-<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;" *ngIf="DataUser">
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-2">
                     <button type="button" class="btn btn-block bg-teal float-right"
-                        (click)="openLg(content)">เพิ่มข้อมูล</button>
+                        (click)="openLg()">เพิ่มข้อมูล</button>
                     <!-- <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Calendar</li>
@@ -23,8 +23,8 @@
                 <div class="col-12">
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table table-striped" *ngIf="DataUser">
+                        <div class="card-body p-0"> 
+                            <table class="table table-striped   ">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -33,23 +33,29 @@
                                         <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngIf="DataUser || DataUser.data || DataUser.data.length > 1">
                                     <tr *ngFor="let item of DataUser.data; let i = index">
                                         <td>{{i+1}}</td>
-                                        <td>{{item.firstName}}</td>
+                                        <td>{{item.firstName+' '+item.lastName}}</td>
                                         <td></td>
-                                        <td><button type="button" class="btn btn-block bg-teal">ลบข้อมูล</button></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!DataUser || !DataUser.data || DataUser.data.length == 0">
+                                    <tr >
+                                        <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
                         <!-- .card-footer -->
-                        <!-- <div class="card-footer clearfix">
+                        <div class="card-footer clearfix">
                             <span class="pagination pagination-sm m-0 float-right">
                                 <ngb-pagination [collectionSize]="50" [(page)]="page"></ngb-pagination>
                             </span>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,48 +64,57 @@
 </div>
 
 
-<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header bg-teal" >
-        <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสมาชิก</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">ชื่อ</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อ...">
+<div class="modal fade bd-example-modal-lg" id="content">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสมาชิก</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ชื่อ</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อ..."
+                                name="name" [(ngModel)]="ngMember.name">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">นามสกุล</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="นามสกุล..."
+                                name="lastName" [(ngModel)]="ngMember.lastName">
+                        </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">นามสกุล</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="นามสกุล...">
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username..."
+                                name="username" [(ngModel)]="ngMember.user">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password..." name="password" [(ngModel)]="ngMember.pass">
+                        </div>
                     </div>
                 </div>
+
+            </div>
+            <!-- {{ngMember|json}} -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="createUer()">Save</button>
             </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Username</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username...">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password  " class="form-control" id="exampleInputPassword1" placeholder="Password...">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-    </div>
-</ng-template>
+</div>
