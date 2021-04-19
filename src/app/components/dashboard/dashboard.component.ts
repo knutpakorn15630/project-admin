@@ -53,7 +53,6 @@ export class DashboardComponent implements OnInit {
     };
     this.callApi.logoutUser(body).subscribe(
       (res) => {
-        console.log(`logout ${this.DataToken.accessToken}`);
         this.serviceLogin.clearLogin();
         this.router.navigateByUrl('login');
       }
