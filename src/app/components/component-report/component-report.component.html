@@ -24,7 +24,8 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped" *ngIf="DataReport || DataReport.data">
+                            <table class="table table-striped"
+                                *ngIf="DataReport && DataReport.data && DataReport.data.length > 0">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -66,7 +67,7 @@
 </div>
 
 
-<div class="modal fade bd-example-modal-lg" id="content">
+<div class="modal fade bd-example-modal-lg" id="contentReport">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-teal">
@@ -82,7 +83,7 @@
                             <div class="form-group">
                                 <label>หัวข้อ</label>
                                 <input type="text" class="form-control" placeholder="เรื่อง..." name="name"
-                                    [(ngModel)]="ngMember2.title">
+                                    [(ngModel)]="ngReport.title">
                             </div>
                         </div>
 
@@ -92,7 +93,7 @@
                             <div class="form-group">
                                 <label>วัสดุ</label>
                                 <input type="text" class="form-control" placeholder="วัสดุ..." name="username"
-                                    [(ngModel)]="ngMember2.material">
+                                    [(ngModel)]="ngReport.material">
                             </div>
                         </div>
                     </div>
@@ -101,15 +102,56 @@
                             <div class="form-group">
                                 <label>ชื่อพนักงาน</label>
                                 <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล" name="lastName"
-                                    [(ngModel)]="ngMember2.ResponsibleName">
+                                    [(ngModel)]="ngReport.ResponsibleName">
                             </div>
                         </div>
                     </div>
-                </div>
-                {{ngMember2|json}}
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark">Save</button>
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <div class="form-group"
+                                *ngIf="GetDelivery && GetDelivery.data && GetDelivery.data.length > 0">
+                                <label>ชื่อพนักงาน</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อพนักงาน"
+                                    [(ngModel)]="ngReport.chauffeurId">
+                                    <option *ngFor="let item of GetDelivery.data">{{item.firstName+ ' ' +
+                                        item.lastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" >
+                                <label>ร้านค้า</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อพนักงาน" [(ngModel)]="ngReport.chauffeurId">
+                                    <option *ngIf="!GetDelivery || !GetDelivery.data || GetDelivery.data.length < 0">----------- ไม่มีข้อมูล -----------</option>
+                                    <option selected>----------- เลือกชื่อพนักงาน-----------</option>
+                                    <option *ngFor="let item of GetDelivery.data">{{item.id+ ' ' + item.firstName+ ' '+ item.lastName}}</option>
+                                </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" >
+                                <label>ร้านค้า</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อร้านค้า" [(ngModel)]="ngReport.shopId">
+                                    <option *ngIf="!GetShop || !GetShop.data || GetShop.data.length < 0">----------- ไม่มีข้อมูล -----------</option>
+                                    <option selected>----------- เลือกชื่อร้านค้า -----------</option>
+                                    <option *ngFor="let item2 of GetShop.data">{{item2.id+ ' ' + item2.name}}</option>
+                                </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {{ngReport|json}}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, NgbModalConfig, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ReqReport, ResReport } from 'src/app/service-interface/interface-report';
+import { ReqCreateReport, ReqReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -14,10 +13,18 @@ export class ComponentReportComponent implements OnInit {
 
   DataReport: ResReport = null;
 
-  ngMember2 = {
+  GetShop: ResGetShop = null;
+
+  GetDelivery: ResGetChauffeur = null;
+
+  testNum = 'qwertyuiop';
+
+  ngReport = {
     title: '',
     material: '',
     ResponsibleName: '',
+    chauffeurId: '',
+    shopId: ''
   };
 
   ngPang = {
@@ -25,10 +32,11 @@ export class ComponentReportComponent implements OnInit {
     Pang: 1
   };
 
-  constructor(config: NgbPaginationConfig, config2: NgbModalConfig, private modalService: NgbModal, private callApi: ApiserviceService) { }
+  constructor(private callApi: ApiserviceService) { }
 
   ngOnInit(): void {
     this.showReport();
+    this.createResReport();
   }
 
   showReport() {
@@ -43,22 +51,47 @@ export class ComponentReportComponent implements OnInit {
     );
   }
 
+  createResReport() {
+    this.callApi.GetDataChauffeur().subscribe(
+      (res) => {
+        this.GetDelivery = res;
+        console.log(res);
+      }
+    );
+    this.callApi.GetDataShop().subscribe(
+      (res) => {
+        this.GetShop = res;
+        console.log(res);
+      }
+    );
+    // const body: ReqCreateReport = {
+    //   title:
+    //     material:
+    //   ResponsibleName:
+    //     chauffeurId:
+    //   shopId:
+    // };
+    // this.callApi.createReport()
+  }
+
 
   EmptyData() {
-    this.ngMember2 = {
+    this.ngReport = {
       title: '',
       material: '',
       ResponsibleName: '',
+      chauffeurId: '',
+      shopId: ''
     };
   }
 
   hideModal() {
-    $('#content').modal('hide');
+    $('#contentReport').modal('hide');
     this.EmptyData();
   }
 
   openLg() {
-    $('#content').modal('show');
+    $('#contentReport').modal('show');
   }
 
 }
