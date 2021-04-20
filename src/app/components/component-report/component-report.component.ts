@@ -29,7 +29,8 @@ export class ComponentReportComponent implements OnInit {
 
   ngPang = {
     perPage: 10,
-    Pang: 1
+    Pang: 1,
+    total: 100
   };
 
   constructor(private callApi: ApiserviceService) { }
@@ -39,6 +40,8 @@ export class ComponentReportComponent implements OnInit {
     this.createResReport();
   }
 
+
+
   showReport() {
     const body: ReqReport = {
       perPage: this.ngPang.perPage,
@@ -47,6 +50,7 @@ export class ComponentReportComponent implements OnInit {
     this.callApi.showReport(body).subscribe(
       (res) => {
         this.DataReport = res;
+        this.setPageTotal(this.DataReport.totalPages);
       }
     );
   }
@@ -74,6 +78,19 @@ export class ComponentReportComponent implements OnInit {
     // this.callApi.createReport()
   }
 
+  setPageTotal(totalArg: number) {
+    this.ngPang.total = totalArg * 10;
+  }
+
+  pageTest() {
+    setTimeout(() => {
+      const ngPage: SwitchPage = {
+        page: this.ngPang.Pang
+      };
+      console.log('==========================', ngPage);
+    }, 5);
+  }
+
 
   EmptyData() {
     this.ngReport = {
@@ -95,3 +112,9 @@ export class ComponentReportComponent implements OnInit {
   }
 
 }
+
+
+interface SwitchPage {
+  page: number;
+}
+

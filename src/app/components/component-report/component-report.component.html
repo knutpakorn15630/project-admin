@@ -56,7 +56,10 @@
                         <!-- .card-footer -->
                         <div class="card-footer clearfix">
                             <span class="pagination pagination-sm m-0 float-right">
-                                <ngb-pagination [collectionSize]="50" [(page)]="ngPang.Pang"></ngb-pagination>
+                                <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
+                                    [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
+                                    (click)="pageTest()">
+                                </ngb-pagination>
                             </span>
                         </div>
                     </div>
