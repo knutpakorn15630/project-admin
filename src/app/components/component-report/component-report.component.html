@@ -42,7 +42,8 @@
                                         <td>{{report.title}}</td>
                                         <td>{{report.material}}</td>
                                         <td>{{report.ResponsibleName}}</td>
-                                        <td><button type="button" class="btn btn-block bg-teal">ลบข้อมูล</button></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                            (click)="deleteReport(report.id)">ลบข้อมูล</button></td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataReport || !DataReport.data || DataReport.data.length === 0">
@@ -83,24 +84,25 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <label>ร้านค้า</label>
                                 <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
-                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อร้านค้า" [(ngModel)]="ngReport.shopId"  [(ngModel)]="ngReport.title">
-                                    <option *ngIf="!GetShop || !GetShop.data || GetShop.data.length < 0">----------- ไม่มีข้อมูล -----------</option>
+                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อร้านค้า"
+                                    [(ngModel)]="ngReport.shopId" [(ngModel)]="ngReport.title">
+                                    <option *ngIf="!GetShop || !GetShop.data || GetShop.data.length < 0">-----------
+                                        ไม่มีข้อมูล -----------</option>
                                     <option selected>----------- เลือกชื่อร้านค้า -----------</option>
                                     <option *ngFor="let item2 of GetShop.data">{{item2.id + ' ' + item2.name}}</option>
                                 </select>
-                                
+
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>เนื้อหา</label>
-                                <input type="text" class="form-control" placeholder="เนื้อหา..." name="username"
-                                    [(ngModel)]="ngReport.material">
+                                <textarea class="form-control" rows="3" placeholder="เนื้อหา..." name="material" [(ngModel)]="ngReport.material"></textarea>
                             </div>
                         </div>
                     </div>
@@ -120,23 +122,33 @@
                     </div> -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <label>พนักงาน</label>
                                 <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
-                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อพนักงาน" [(ngModel)]="ngReport.chauffeurId">
-                                    <option *ngIf="!GetDelivery || !GetDelivery.data || GetDelivery.data.length < 0">----------- ไม่มีข้อมูล -----------</option>
+                                    tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อพนักงาน"
+                                    [(ngModel)]="ngReport.chauffeurId">
+                                    <option *ngIf="!GetDelivery || !GetDelivery.data || GetDelivery.data.length < 0">
+                                        ----------- ไม่มีข้อมูล -----------</option>
                                     <option selected>----------- เลือกชื่อพนักงาน-----------</option>
-                                    <option *ngFor="let item of GetDelivery.data">{{ item.id + ' ' + item.firstName+ ' '+ item.lastName}}</option>
+                                    <option *ngFor="let item of GetDelivery.data">{{ item.id + ' ' + item.firstName+ '
+                                        '+ item.lastName}}</option>
                                 </select>
-                                
+
                             </div>
                         </div>
                     </div>
-                    
-                    {{ngReport|json}}
+
+                    <!-- {{ngReport|json}} -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-dark" (click)="createReport()">Save</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Textarea</label>
+    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+  </div>

@@ -66,3 +66,4 @@ export interface ReqUpdateUser {
 export interface ReqLogoutUser {
     token: string;
 }
+

@@ -3,12 +3,24 @@ export interface ReqReport {
     page: number;
 }
 
+
 export interface ResReport {
     totalItems: number;
     itemsPerPage: number;
     totalPages: number;
     currentPage: number;
-    data: any[];
+    data: Daum[];
+}
+
+export interface Daum {
+    id: number;
+    title: string;
+    material: string;
+    ResponsibleName: string;
+    createdAt: string;
+    updatedAt: string;
+    chauffeurId: any;
+    shopId: any;
 }
 
 

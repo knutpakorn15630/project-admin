@@ -35,6 +35,18 @@ export class ComponentReportComponent implements OnInit {
     total: 100
   };
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+  });
+
   constructor(private callApi: ApiserviceService) { }
 
   ngOnInit(): void {
@@ -58,10 +70,10 @@ export class ComponentReportComponent implements OnInit {
   }
 
   createReport() {
-    const ChuId = this.GetDelivery.data.find((x) => x.id + ' ' + x.firstName + ' ' + x.lastName === this.ngReport.chauffeurId)
-    const shopId = this.GetShop.data.find((x) => x.id + ' ' + x.name === this.ngReport.shopId)
-    console.log('this is chu -------->', ChuId)
-    console.log('this is sho -------->', shopId)
+    const ChuId = this.GetDelivery.data.find((x) => x.id + ' ' + x.firstName + ' ' + x.lastName === this.ngReport.chauffeurId);
+    const shopId = this.GetShop.data.find((x) => x.id + ' ' + x.name === this.ngReport.shopId);
+    console.log('this is chu -------->', ChuId);
+    console.log('this is sho -------->', shopId);
 
     const body: ReqCreateReport = {
       title: shopId.name,
@@ -69,6 +81,7 @@ export class ComponentReportComponent implements OnInit {
       ResponsibleName: ChuId.firstName + ' ' + ChuId.lastName,
       chauffeurId: ChuId.id,
       shopId: shopId.id
+      // tslint:disable-next-line:align
     }; this.callApi.createReport(body).subscribe(
       (res) => {
         this.dataCreate = res;
@@ -79,16 +92,32 @@ export class ComponentReportComponent implements OnInit {
           ResponsibleName: '',
           chauffeurId: '',
           shopId: ''
-        }
+        };
         this.showReport();
       },
       (err) => {
-        console.log(err)
+        console.log(err);
       }
-      )
-
-
+    );
   }
+
+
+  deleteReport(id: number) {
+    this.callApi.DeleteReport(id).subscribe(
+      (res) => {
+
+      },
+      (err) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'ลบสำเร็จเรียบร้อยแล้ว'
+        });
+        this.showReport();
+        console.log(err);
+      }
+    );
+  }
+
 
   createResReport() {
     this.callApi.GetDataChauffeur().subscribe(

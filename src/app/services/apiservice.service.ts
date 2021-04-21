@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ReqCreateDelivery, ReqDelivery, ResCreateDelivery, ResDataDelivery } from '../service-interface/interface-delivery';
 import { ReqLogins, ResLogins } from '../service-interface/interface-login';
 import { ReqCreateReport, ReqReport, ResCreateReport, ResGetChauffeur, ResGetShop, ResReport } from '../service-interface/interface-report';
-import { ReqCreateShop, ReqShowShop, ResDataCreateShop, ResShowShop } from '../service-interface/interface-shop';
+import { ReqCreateShop, ReqShowShop, ReqUpdateShop, ResDataChauffeur, ResDataCreateShop, ResShowShop, ResUpdateShop } from '../service-interface/interface-shop';
 import { ReqCreateUser, ReqLogoutUser, ReqUpdateUser, ResCreateUser, ResShowUser } from '../service-interface/interface-user';
 import { ReqRefreshToken, ResKeyToken, ResRefreshToken } from '../service-interface/token';
 import { ServiceLoginTokenService } from './service-login-token.service';
@@ -63,6 +63,10 @@ export class ApiserviceService {
     return this.httpApiClient.get<ResGetChauffeur>(`${this.apiUrl}/api/report/getChauffeur`);
   }
 
+  public DeleteReport(id: number): Observable<any>{
+    return this.httpApiClient.delete<any>(`${this.apiUrl}/api/report/delete/${id}`);
+  }
+
 
   // Login/Token/Logout---------------------------------------------------------------------------------------------------
 
@@ -110,6 +114,17 @@ export class ApiserviceService {
     return this.httpApiClient.post<ResDataCreateShop>(`${this.apiUrl}/api/shop/createShopUser`, body);
   }
 
+  public GetChauffeur(): Observable<ResDataChauffeur>{
+    return this.httpApiClient.get<ResDataChauffeur>(`${this.apiUrl}/api/shop/dataChauffeur`);
+  }
+
+  public UpdateShop(body: ReqUpdateShop): Observable<ResUpdateShop>{
+    return this.httpApiClient.post<ResUpdateShop>(`${this.apiUrl}/api/shop/update`, body);
+  }
+
+  public DeleteShop(id: number): Observable<any>{
+    return this.httpApiClient.delete<any>(`${this.apiUrl}/api/shop/delete/${id}`);
+  }
 
 
 }
