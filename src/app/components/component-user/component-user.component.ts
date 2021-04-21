@@ -4,6 +4,7 @@ import { ResLogins } from 'src/app/service-interface/interface-login';
 import { ReqCreateUser, ReqUpdateUser, ResShowUser } from 'src/app/service-interface/interface-user';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginTokenService } from 'src/app/services/service-login-token.service';
+import { ServiceLoginService } from 'src/app/services/service-login.service';
 
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -56,17 +57,17 @@ export class ComponentUserComponent implements OnInit {
     config: NgbPaginationConfig,
     config2: NgbModalConfig,
     private callApi: ApiserviceService,
-    private serciceToken: ServiceLoginTokenService
+    private serviceLogin: ServiceLoginService,
 
   ) {
     config.size = 'sm';
     config.boundaryLinks = true;
     config2.backdrop = 'static';
     config2.keyboard = false;
-    this.DataToken = this.serciceToken.getToken();
   }
 
   ngOnInit(): void {
+    this.DataToken = this.serviceLogin.Token();
     this.loadDataUser();
   }
 

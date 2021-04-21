@@ -48,6 +48,7 @@ export class ComponentLoginComponent implements OnInit {
         } else {
           setTimeout(() => {
             this.serviceLogin.setLogin(res);
+            console.log('login is token', res);
           }, 200);
           this.router.navigateByUrl('/dashboard/user');
         }

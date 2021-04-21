@@ -8,14 +8,19 @@ import { ComponentShopComponent } from './components/component-shop/component-sh
 import { ComponentUserComponent } from './components/component-user/component-user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GoogleMapComponent } from './components/google-map/google-map.component';
+import { LoginGuard } from './login.guard';
 
 
 const routes: Routes = [
+
   {
-    path: 'login',
-    component: ComponentLoginComponent
-  },
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  }
+  ,
   {
+    // canActivate: [LoginGuard],
     path: 'dashboard',
     component: DashboardComponent,
     children: [
@@ -32,10 +37,6 @@ const routes: Routes = [
         component: ComponentShopComponent
       },
       {
-        path: 'map',
-        component: ComponentMapComponent
-      },
-      {
         path: 'delivery',
         component: ComponentDeliveryComponent
       },
@@ -44,7 +45,11 @@ const routes: Routes = [
         component: GoogleMapComponent
       },
     ]
-  }
+  },
+  {
+    path: 'login',
+    component: ComponentLoginComponent
+  },
   // {
   //   path: 'login',
   //   component: ComponentLoginComponent

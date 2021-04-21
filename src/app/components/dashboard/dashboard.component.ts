@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResLogins } from 'src/app/service-interface/interface-login';
+import { ResLogin2, ResLogins } from 'src/app/service-interface/interface-login';
 import { ReqLogoutUser } from 'src/app/service-interface/interface-user';
 import { ReqRefreshToken, ResKeyToken } from 'src/app/service-interface/token';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
@@ -29,23 +29,26 @@ export const ROUTES: RouteInfo[] = [
 export class DashboardComponent implements OnInit {
   menuItems: any[];
 
-  DataToken: ResLogins;
+  DataTokenLogin: ResLogin2;
 
   DataTokenBearer: ResKeyToken = null;
   // tslint:disable-next-line:max-line-length
   constructor(
-    private serciceToken: ServiceLoginTokenService,
     private callApi: ApiserviceService,
     private serviceLogin: ServiceLoginService,
     public router: Router) {
-    this.DataToken = this.serciceToken.getToken();
+    this.DataTokenLogin = this.serviceLogin.Token();
+
+    // this.DataToken = this.serciceToken.getToken();
   }
 
 
   ngOnInit(): void {
     // setInterval(this.resetToken, 10000);
-    console.log(`this. token ${this.DataToken.accessToken}`);
-    this.BearerToken();
+    setTimeout(() => {
+      console.log(`this. token+++++ ${this.DataTokenLogin.accessToken}`);
+    }, 5000);
+
     setInterval(() => {
       this.resetToken();
     }, 1800000);
@@ -53,7 +56,7 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     const body: ReqLogoutUser = {
-      token: this.DataToken.accessToken
+      token: this.DataTokenLogin.accessToken
     };
     this.callApi.logoutUser(body).subscribe(
       (res) => {
@@ -65,26 +68,22 @@ export class DashboardComponent implements OnInit {
 
   resetToken() {
 
+    console.log(`aaaaaaaaaaaaaaaaaaaaaa ${this.DataTokenLogin.accessToken}`);
     const body: ReqRefreshToken = {
-      token: this.DataToken.refreshToken
+      token: this.DataTokenLogin.refreshToken
     };
+    console.log('1');
     this.callApi.refreshToken(body).subscribe(
       (res) => {
-        this.DataToken.accessToken = res.accessToken;
+        console.log('2');
+        this.DataTokenLogin.accessToken = res.accessToken;
+        console.log('this token ------------------------>', this.DataTokenLogin.accessToken);
       },
       (err) => {
+        console.log('3');
         console.log('เข้า ree นะ', err);
       }
     );
-  }
-
-  BearerToken() {
-    this.callApi.BearerToken().subscribe(
-      (res) => {
-      console.log('res ', res);
-      }
-    );
-    // console.log(`------------------------${this.DataToken.accessToken}`);
   }
 
 }

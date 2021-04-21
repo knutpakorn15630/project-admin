@@ -22,7 +22,6 @@ export class ApiserviceService {
 
   // tslint:disable-next-line:max-line-length
   constructor(private httpApiClient: HttpClient, private serviceLogin: ServiceLoginService, private serciceToken: ServiceLoginTokenService) {
-    this.DataToken = this.serciceToken.getToken();
   }
 
 
