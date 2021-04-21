@@ -64,19 +64,15 @@ export class DashboardComponent implements OnInit {
   }
 
   resetToken() {
-    console.log(`aaaaaaaaaaaaaaaaaaaaaa ${this.DataToken.refreshToken}`);
+
     const body: ReqRefreshToken = {
       token: this.DataToken.refreshToken
     };
-    console.log('1');
     this.callApi.refreshToken(body).subscribe(
       (res) => {
-        console.log('2');
         this.DataToken.accessToken = res.accessToken;
-        console.log('this token ------------------------>', this.DataToken.accessToken);
       },
       (err) => {
-        console.log('3');
         console.log('เข้า ree นะ', err);
       }
     );
