@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReqCreateReport, ReqReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
+import { ReqCreateReport, ReqReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -12,6 +12,8 @@ declare var $: any;
 export class ComponentReportComponent implements OnInit {
 
   DataReport: ResReport = null;
+
+  dataCreate: ResCreateReport = null;
 
   GetShop: ResGetShop = null;
 
@@ -53,6 +55,39 @@ export class ComponentReportComponent implements OnInit {
         this.setPageTotal(this.DataReport.totalPages);
       }
     );
+  }
+
+  createReport() {
+    const ChuId = this.GetDelivery.data.find((x) => x.id + ' ' + x.firstName + ' ' + x.lastName === this.ngReport.chauffeurId)
+    const shopId = this.GetShop.data.find((x) => x.id + ' ' + x.name === this.ngReport.shopId)
+    console.log('this is chu -------->', ChuId)
+    console.log('this is sho -------->', shopId)
+
+    const body: ReqCreateReport = {
+      title: shopId.name,
+      material: this.ngReport.material,
+      ResponsibleName: ChuId.firstName + ' ' + ChuId.lastName,
+      chauffeurId: ChuId.id,
+      shopId: shopId.id
+    }; this.callApi.createReport(body).subscribe(
+      (res) => {
+        this.dataCreate = res;
+        $('#contentReport').modal('hide');
+        this.ngReport = {
+          title: '',
+          material: '',
+          ResponsibleName: '',
+          chauffeurId: '',
+          shopId: ''
+        }
+        this.showReport();
+      },
+      (err) => {
+        console.log(err)
+      }
+      )
+
+
   }
 
   createResReport() {
