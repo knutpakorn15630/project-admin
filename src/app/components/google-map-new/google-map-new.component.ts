@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-google-map',
-  templateUrl: './google-map.component.html',
-  styleUrls: ['./google-map.component.scss']
+  selector: 'app-google-map-new',
+  templateUrl: './google-map-new.component.html',
+  styleUrls: ['./google-map-new.component.scss']
 })
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapNewComponent implements OnInit {
   center: google.maps.LatLngLiteral = { lat: 9.125536224822316, lng: 99.33487485690628 };
   display: google.maps.LatLngLiteral = { lat: 9.125536224822316, lng: 99.33487485690628 };
   zoom = 4;
@@ -22,5 +22,4 @@ export class GoogleMapComponent implements OnInit {
   move(event: google.maps.MapMouseEvent) {
     this.display = event.latLng.toJSON();
   }
-
 }

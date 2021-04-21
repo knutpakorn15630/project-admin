@@ -7,7 +7,7 @@ import { ComponentReportComponent } from './components/component-report/componen
 import { ComponentShopComponent } from './components/component-shop/component-shop.component';
 import { ComponentUserComponent } from './components/component-user/component-user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { GoogleMapComponent } from './components/google-map/google-map.component';
+import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
 
 
 const routes: Routes = [
@@ -40,11 +40,12 @@ const routes: Routes = [
         component: ComponentDeliveryComponent
       },
       {
-        path: 'maps',
-        component: GoogleMapComponent
+        path: 'mapsNew',
+        component: GoogleMapNewComponent
       },
     ]
-  }
+  },
+
   // {
   //   path: 'login',
   //   component: ComponentLoginComponent
