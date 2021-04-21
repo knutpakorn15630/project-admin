@@ -14,8 +14,8 @@ import { ComponentLoginComponent } from './components/component-login/component-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapComponent } from './components/google-map/google-map.component';
-// import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { GoogleMapComponent } from './components/google-map/google-map.component
     ComponentShopComponent,
     ComponentMapComponent,
     ComponentLoginComponent,
-    GoogleMapComponent
+    GoogleMapNewComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +38,9 @@ import { GoogleMapComponent } from './components/google-map/google-map.component
     RouterModule,
     NgbModule,
     HttpClientModule,
-    // GoogleMapsModule
+    GoogleMapsModule
   ],
-  providers: [GoogleMapComponent],
+  providers: [GoogleMapNewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,19 +10,17 @@ import { ServiceLoginService } from './services/service-login.service';
 })
 export class LoginGuard implements CanActivate {
 
-  DataTokenTest: ResDataLogin2;
+  DataTokenTest: string;
 
-  constructor( private serciceToken: ServiceLoginTokenService,  public router: Router, serviceLogin: ServiceLoginService ){
-    // this.DataTokenTest = serviceLogin.getLogin();
-  }
+  constructor( private serciceToken: ServiceLoginTokenService,  public router: Router, private serviceLogin: ServiceLoginService ){}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise(async (resolve, reject) => {
       // const loginTest2 = this.LoginSer.setLogin(this.loginTest);
-      if (this.DataTokenTest) {
-        console.log('login success');
+      if (this.serviceLogin.getLogin()) {
+        console.log('login success', this.serviceLogin.getLogin());
         return resolve(true);
       } else {
         console.log('login fail');

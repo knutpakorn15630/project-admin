@@ -81,13 +81,7 @@ export class ApiserviceService {
     return this.httpApiClient.post<any>(`${this.apiUrl}/api/user/logout`, body);
   }
 
-  public BearerToken(): Observable<ResKeyToken> {
-    const HeadersForPorDuctsAPI = new Headers();
-    if (this.DataToken.accessToken) {
-      HeadersForPorDuctsAPI.append('Authorization', 'Bearer' + this.DataToken.accessToken);
-      return this.httpApiClient.get<ResKeyToken>(`${this.apiUrl}/getData`);
-    }
-  }
+
 
   // Delivery------------------------------------------------------------------------------------------------------------
 
