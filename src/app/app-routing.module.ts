@@ -39,11 +39,12 @@ const routes: Routes = [
         path: 'delivery',
         component: ComponentDeliveryComponent
       },
-      {
-        path: 'mapsNew',
-        component: GoogleMapNewComponent
-      },
+      
     ]
+  },
+  {
+    path: 'mapsNew',
+    component: GoogleMapNewComponent
   },
 
   // {
