@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ResLogins } from 'src/app/service-interface/interface-login';
 import { ReqCreateUser, ReqUpdateUser, ResShowUser } from 'src/app/service-interface/interface-user';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
+import { ServiceLoginTokenService } from 'src/app/services/service-login-token.service';
 
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -48,16 +50,20 @@ export class ComponentUserComponent implements OnInit {
   });
 
 
+  DataToken: ResLogins;
+
   constructor(
     config: NgbPaginationConfig,
     config2: NgbModalConfig,
     private callApi: ApiserviceService,
+    private serciceToken: ServiceLoginTokenService
 
   ) {
     config.size = 'sm';
     config.boundaryLinks = true;
     config2.backdrop = 'static';
     config2.keyboard = false;
+    this.DataToken = this.serciceToken.getToken();
   }
 
   ngOnInit(): void {
@@ -101,9 +107,27 @@ export class ComponentUserComponent implements OnInit {
     }
   }
 
+
+  UpdateData(id: number) {
+    const Result = this.DataUser.data.find((x) => x.id === id);
+    if (!Result) {
+      return;
+    }
+    this.ngUpdate = {
+      token: this.DataToken.accessToken,
+      id: Result.id.toString(),
+      password: Result.password,
+      firstName: Result.firstName,
+      lastName: Result.lastName,
+      userName: Result.userName,
+      passwordNew: this.ngUpdate.passwordNew,
+    };
+    $('#Update').modal('show');
+  }
+
   updateUser() {
     const body: ReqUpdateUser = {
-      token: this.ngUpdate.token,
+      token: this.DataToken.accessToken,
       id: Number(this.ngUpdate.id),
       password: this.ngUpdate.password,
       firstName: this.ngUpdate.firstName,
@@ -111,9 +135,36 @@ export class ComponentUserComponent implements OnInit {
       userName: this.ngUpdate.userName,
       passwordNew: this.ngUpdate.passwordNew
     };
+
+    if (!this.ngUpdate.firstName || !this.ngUpdate.lastName || !this.ngUpdate.passwordNew) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1000
+      });
+      return;
+    }
+
+    if (this.ngUpdate.password !== this.ngUpdate.passwordNew) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'รหัสผ่านไม่ถูกต้อง !',
+        showConfirmButton: false,
+        timer: 1000
+      });
+      return;
+    }
+
     this.callApi.updateUser(body).subscribe(
       (res) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
+        });
+        console.log('this is dada ', res);
         this.loadDataUser();
+        this.hideModal2();
       }
     );
   }
@@ -142,10 +193,27 @@ export class ComponentUserComponent implements OnInit {
     };
   }
 
+  DataNull(){
+    this.ngUpdate = {
+      token: '',
+      id: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      userName: '',
+      passwordNew: '',
+    };
+  }
+
 
   hideModal() {
     $('#content').modal('hide');
     this.EmptyData();
+  }
+
+  hideModal2() {
+    $('#Update').modal('hide');
+    this.DataNull();
   }
 
   openLg() {

@@ -1,1 +1,219 @@
-<p>component-shop works!</p>
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1>ร้านค้า</h1>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-block bg-teal float-right"
+                        (click)="openLg()">เพิ่มข้อมูล</button>
+                    <!-- <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Calendar</li>
+                    </ol> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-outline card-teal">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped"
+                                *ngIf="DataShop && DataShop.data && DataShop.data.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>ชื่อร้าน</th>
+                                        <th>สถานะ</th>
+                                        <th>ละติจูด</th>
+                                        <th>ลองจิจูด</th>
+                                        <th style="width: 150px"></th>
+                                        <th style="width: 150px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="DataShop || DataShop.data || DataShop.data.length > 0">
+                                    <tr *ngFor="let item of DataShop.data; let i = index">
+                                        <td>{{i +1}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.status}}</td>
+                                        <td>{{item.latitude}}</td>
+                                        <td>{{item.longitude}}</td>
+                                        <td><button type="button" class="btn btn-block bg-teal" (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-block bg-teal" (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!DataShop || !DataShop.data || DataShop.data.length < 0">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <span class="pagination pagination-sm m-0 float-right">
+                                <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
+                                    [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
+                                    (click)="pageTest()">
+                                </ngb-pagination>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="Create">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label>ชื่อร้าน</label>
+                            <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
+                                [(ngModel)]="ngCreate.name">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>สถานะ</label>
+                            <input type="text" class="form-control" placeholder="สถานะ..." name="status"
+                                [(ngModel)]="ngCreate.status">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>ชื่อพนังงาน</label>
+                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อหนักงาน"
+                                [(ngModel)]="ngCreate.chauffeurId">
+                                <option *ngIf="!GetChauffeur || !GetChauffeur.data || GetChauffeur.data.length < 0">
+                                    ----------- ไม่มีข้อมูล -----------</option>
+                                <option selected>------------------------- เลือกชื่อร้านค้า -------------------------
+                                </option>
+                                <option *ngFor="let item2 of GetChauffeur.data">{{item2.id + ' ' + item2.firstName + ' '
+                                    + item2.lastName}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>ละติจูด</label>
+                            <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
+                                [(ngModel)]="ngCreate.la">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>ลองจิจูด</label>
+                            <input type="password" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
+                                [(ngModel)]="ngCreate.long">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- {{ngMember|json}} -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="CreateDataShop()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="Update">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal2()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label>ชื่อร้าน</label>
+                            <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
+                                [(ngModel)]="ngCreate.name">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>สถานะ</label>
+                            <input type="text" class="form-control" placeholder="สถานะ..." name="status"
+                                [(ngModel)]="ngCreate.status">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>ชื่อพนักงาน</label>
+                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อหนักงาน" [(ngModel)]="ngCreate.chauffeurId">
+                                <option *ngIf="!GetChauffeur || !GetChauffeur.data || GetChauffeur.data.length < 0">
+                                    ----------- ไม่มีข้อมูล -----------</option>
+                                <option selected  [(ngModel)]="ngCreate.chauffeurId"></option>
+                                <option *ngFor="let item2 of GetChauffeur.data">{{item2.id + ' ' + item2.firstName + ' '
+                                    + item2.lastName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>ละติจูด</label>
+                            <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
+                                [(ngModel)]="ngCreate.la">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>ลองจิจูด</label>
+                            <input type="text" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
+                                [(ngModel)]="ngCreate.long">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- {{ngMember|json}} -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="updateShop()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

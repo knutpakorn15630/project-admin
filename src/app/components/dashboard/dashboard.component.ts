@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResLogins } from 'src/app/service-interface/interface-login';
 import { ReqLogoutUser } from 'src/app/service-interface/interface-user';
-import { ReqRefreshToken } from 'src/app/service-interface/token';
+import { ReqRefreshToken, ResKeyToken } from 'src/app/service-interface/token';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginTokenService } from 'src/app/services/service-login-token.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
   menuItems: any[];
 
   DataToken: ResLogins;
+
+  DataTokenBearer: ResKeyToken = null;
   // tslint:disable-next-line:max-line-length
   constructor(
     private serciceToken: ServiceLoginTokenService,
@@ -42,6 +44,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // setInterval(this.resetToken, 10000);
+    console.log(`this. token ${this.DataToken.accessToken}`);
+    this.BearerToken();
     setInterval(() => {
       this.resetToken();
     }, 1800000);
@@ -76,6 +80,15 @@ export class DashboardComponent implements OnInit {
         console.log('เข้า ree นะ', err);
       }
     );
+  }
+
+  BearerToken() {
+    this.callApi.BearerToken().subscribe(
+      (res) => {
+      console.log('res ', res);
+      }
+    );
+    // console.log(`------------------------${this.DataToken.accessToken}`);
   }
 
 }
