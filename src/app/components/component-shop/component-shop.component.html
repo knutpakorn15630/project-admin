@@ -44,9 +44,11 @@
                                         <td>{{item.status}}</td>
                                         <td>{{item.latitude}}</td>
                                         <td>{{item.longitude}}</td>
-                                        <td><button type="button" class="btn btn-block bg-teal" (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
                                         </td>
-                                        <td><button type="button" class="btn btn-block bg-teal" (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataShop || !DataShop.data || DataShop.data.length < 0">
@@ -181,10 +183,11 @@
                         <div class="form-group">
                             <label>ชื่อพนักงาน</label>
                             <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
-                                tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อหนักงาน" [(ngModel)]="ngCreate.chauffeurId">
+                                tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อหนักงาน"
+                                [(ngModel)]="ngCreate.chauffeurId">
                                 <option *ngIf="!GetChauffeur || !GetChauffeur.data || GetChauffeur.data.length < 0">
                                     ----------- ไม่มีข้อมูล -----------</option>
-                                <option selected  [(ngModel)]="ngCreate.chauffeurId"></option>
+                                <option selected [(ngModel)]="ngCreate.chauffeurId"></option>
                                 <option *ngFor="let item2 of GetChauffeur.data">{{item2.id + ' ' + item2.firstName + ' '
                                     + item2.lastName}}</option>
                             </select>

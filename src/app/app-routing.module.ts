@@ -2,20 +2,29 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ComponentDeliveryComponent } from './components/component-delivery/component-delivery.component';
 import { ComponentLoginComponent } from './components/component-login/component-login.component';
-import { ComponentMapComponent } from './components/component-map/component-map.component';
 import { ComponentReportComponent } from './components/component-report/component-report.component';
 import { ComponentShopComponent } from './components/component-shop/component-shop.component';
 import { ComponentUserComponent } from './components/component-user/component-user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
+import { LoginGuard } from './login.guard';
 
 
 const routes: Routes = [
+
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  }
+  ,
   {
     path: 'login',
     component: ComponentLoginComponent
-  },
+  }
+  ,
   {
+    canActivate: [LoginGuard],
     path: 'dashboard',
     component: DashboardComponent,
     children: [
@@ -32,10 +41,6 @@ const routes: Routes = [
         component: ComponentShopComponent
       },
       {
-        path: 'map',
-        component: ComponentMapComponent
-      },
-      {
         path: 'delivery',
         component: ComponentDeliveryComponent
       },
@@ -45,7 +50,6 @@ const routes: Routes = [
       },
     ]
   },
-
 
   // {
   //   path: 'login',

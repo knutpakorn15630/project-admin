@@ -1,11 +1,51 @@
-<google-map height="400px"
-            width="750px"
-            [center]="center"
-            [zoom]="zoom"
-            (mapClick)="moveMap($event)"
-            (mapMousemove)="move($event)">
-</google-map>
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1>แผนที่</h1>
+                </div>
+                <div class="col-sm-2">
+                    <!-- <button type="button" class="btn btn-block bg-teal float-right"
+                        (click)="openLg()">เพิ่มข้อมูล</button> -->
+                    <!-- <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Calendar</li>
+                    </ol> -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div>Latitude: {{ display?.lat }}</div>
-<div>Longitude: {{ display?.lng }}</div>
 
+
+    <section class="content">
+        <div class="container-fluid">
+            <!-- width="1100px" height="500px" -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <google-map width="1200px" height="600px" [center]="center" [zoom]="zoom"
+                                (mapClick)="moveMap($event)" (mapMousemove)="move($event)">
+                            </google-map>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <div class="row">
+                        <div class="col-3">
+                            <div>Latitude: {{ display?.lat }}</div>
+                        </div>
+                        <div class="col-5">
+                            <div>Longitude: {{ display?.lng }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>

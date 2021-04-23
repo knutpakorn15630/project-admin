@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { ResTokenService } from '../service-interface/token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceLoginService {
+
+  DataToken: ResTokenService = null;
+
+
 
   constructor() { }
 
@@ -18,7 +23,15 @@ export class ServiceLoginService {
   }
 
   clearLogin() {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem('login');
+  }
+
+  Token() {
+    if (this.getLogin()) {
+      this.DataToken = JSON.parse(this.getLogin());
+      return this.DataToken;
+    }
   }
 
 }
