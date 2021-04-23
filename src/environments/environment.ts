@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  httpApi: 'http://localhost:3002'
+  httpApi: 'https://developer.flowmisite.com'
 };
-
+// http://localhost:3002
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

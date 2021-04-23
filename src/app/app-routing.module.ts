@@ -19,6 +19,11 @@ const routes: Routes = [
   }
   ,
   {
+    path: 'login',
+    component: ComponentLoginComponent
+  }
+  ,
+  {
     canActivate: [LoginGuard],
     path: 'dashboard',
     component: DashboardComponent,
@@ -45,10 +50,7 @@ const routes: Routes = [
       },
     ]
   },
-  {
-    path: 'login',
-    component: ComponentLoginComponent
-  },
+
   // {
   //   path: 'login',
   //   component: ComponentLoginComponent

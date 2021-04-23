@@ -9,6 +9,7 @@ export class ServiceLoginService {
   DataToken: ResTokenService = null;
 
 
+
   constructor() { }
 
   getLogin() {
@@ -22,7 +23,8 @@ export class ServiceLoginService {
   }
 
   clearLogin() {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem('login');
   }
 
   Token() {
