@@ -41,14 +41,14 @@ export class DashboardComponent implements OnInit {
     this.DataToken = this.serciceToken.getToken();
   }
 
-
+  testIn;
   ngOnInit(): void {
     // setInterval(this.resetToken, 10000);
     console.log(`this. token ${this.DataToken.accessToken}`);
     this.BearerToken();
-    setInterval(() => {
+    this.testIn = setInterval(() => {
       this.resetToken();
-    }, 1800000);
+    }, 1000);
   }
 
   logout() {
@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
     };
     this.callApi.logoutUser(body).subscribe(
       (res) => {
+        clearInterval(this.testIn);
         this.serviceLogin.clearLogin();
         this.router.navigateByUrl('login');
       }
@@ -85,7 +86,7 @@ export class DashboardComponent implements OnInit {
   BearerToken() {
     this.callApi.BearerToken().subscribe(
       (res) => {
-      console.log('res ', res);
+        console.log('res ', res);
       }
     );
     // console.log(`------------------------${this.DataToken.accessToken}`);
