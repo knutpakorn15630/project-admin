@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgBroadcasterService } from 'ngx-broadcaster';
 import { ReqLogins, ResLogins } from 'src/app/service-interface/interface-login';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
@@ -29,7 +30,8 @@ export class ComponentLoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private callApi: ApiserviceService, private router: Router, private serviceLogin: ServiceLoginService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private callApi: ApiserviceService, private router: Router, private serviceLogin: ServiceLoginService, private broadcaster: NgBroadcasterService) { }
 
   ngOnInit(): void {
   }
@@ -48,7 +50,6 @@ export class ComponentLoginComponent implements OnInit {
         } else {
           setTimeout(() => {
             this.serviceLogin.setLogin(res);
-            console.log('login is token', this.serviceLogin.getLogin());
           }, 200);
           this.router.navigateByUrl('/dashboard/user');
         }

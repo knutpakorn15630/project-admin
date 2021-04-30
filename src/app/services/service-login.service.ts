@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { NgBroadcasterService } from 'ngx-broadcaster';
+import { ResLogins } from '../service-interface/interface-login';
 import { ResTokenService } from '../service-interface/token';
 
 @Injectable({
@@ -10,7 +12,7 @@ export class ServiceLoginService {
 
 
 
-  constructor() { }
+  constructor(private broadcaster: NgBroadcasterService) { }
 
   getLogin() {
     const loginSuccess = localStorage.getItem('login');
@@ -19,6 +21,7 @@ export class ServiceLoginService {
 
   setLogin(Token: ResDataLogin) {
     const isLogin2: ResDataLogin = Token;
+    this.broadcaster.emitEvent('token-login', Token);
     localStorage.setItem('login', JSON.stringify(isLogin2));
   }
 
@@ -40,3 +43,5 @@ export interface ResDataLogin {
   accessToken: string;
   refreshToken: string;
 }
+
+

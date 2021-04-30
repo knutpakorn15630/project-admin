@@ -6,8 +6,8 @@
                     <h1>รายงาน</h1>
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-block bg-teal float-right"
-                        (click)="openLg()">เพิ่มข้อมูล</button>
+                    <!-- <button type="button" class="btn btn-block bg-teal float-right"
+                        (click)="openLg()">เพิ่มข้อมูล</button> -->
                     <!-- <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Calendar</li>
@@ -29,10 +29,12 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>ร้านค้า</th>
-                                        <th>เนื้อหา</th>
-                                        <th>รายงานชื่อ</th>
-                                        <th style="width: 150px"></th>
+                                        <th>วันที่</th>
+                                        <th>ชื่อร้าน</th>
+                                        <th>ขื่อพนักงาน</th>
+                                        <th>สถานะ</th>
+                                        <th>ยอดจ่าย</th>
+                                        <!-- <th style="width: 150px"></th> -->
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataReport || DataReport.data || DataReport.data.length > 0">
@@ -42,8 +44,8 @@
                                         <td>{{report.title}}</td>
                                         <td>{{report.material}}</td>
                                         <td>{{report.ResponsibleName}}</td>
-                                        <td><button type="button" class="btn btn-block bg-teal"
-                                            (click)="deleteReport(report.id)">ลบข้อมูล</button></td>
+                                        <!-- <td><button type="button" class="btn btn-block bg-teal"
+                                            (click)="deleteReport(report.id)">ลบข้อมูล</button></td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataReport || !DataReport.data || DataReport.data.length === 0">
