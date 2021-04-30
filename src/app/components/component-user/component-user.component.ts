@@ -67,7 +67,6 @@ export class ComponentUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.DataToken = this.serviceLogin.Token();
     this.loadDataUser();
   }
 

@@ -12,18 +12,20 @@ export class LoginGuard implements CanActivate {
   DataTokenTest: string;
 
   constructor(public router: Router, private serviceLogin: ServiceLoginService) {
+  this.DataTokenTest = serviceLogin.getLogin();
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise(async (resolve, reject) => {
-      this.DataTokenTest = await this.serviceLogin.getLogin();
+      await this.serviceLogin.delay(500);
       if (this.DataTokenTest) {
         console.log('login success', this.DataTokenTest);
         return resolve(true);
       } else {
         console.log('login fail');
+        console.log('88888888888888', this.DataTokenTest);
         this.router.navigateByUrl('login');
       }
     });

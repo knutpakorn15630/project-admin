@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgBroadcasterService } from 'ngx-broadcaster';
 import { ResLogin2, ResLogins } from 'src/app/service-interface/interface-login';
 import { ReqLogoutUser } from 'src/app/service-interface/interface-user';
 import { ReqRefreshToken, ResKeyToken } from 'src/app/service-interface/token';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
-import { ServiceLoginTokenService } from 'src/app/services/service-login-token.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
-
+import jwt_decode from 'jwt-decode';
 
 declare interface RouteInfo {
   path: string;
@@ -29,62 +29,65 @@ export const ROUTES: RouteInfo[] = [
 export class DashboardComponent implements OnInit {
   menuItems: any[];
 
-  DataTokenLogin: ResLogin2;
+  DataTokenLogin;
 
   DataTokenBearer: ResKeyToken = null;
+
+  BroadCasToken: BroadcasterToken = null;
+
+  decodedToken;
+
+  login = {
+    message: 'Login out',
+  };
+
   // tslint:disable-next-line:max-line-length
   constructor(
     private callApi: ApiserviceService,
     private serviceLogin: ServiceLoginService,
-    public router: Router) {
-    this.DataTokenLogin = this.serviceLogin.Token();
-
-    // this.DataToken = this.serciceToken.getToken();
+    public router: Router,
+    private broadcaster: NgBroadcasterService) {
   }
 
   TestInterval;
 
   ngOnInit(): void {
+
     // setInterval(this.resetToken, 10000);
-
-
-    this.TestInterval = setInterval(() => {
-      this.resetToken();
-    }, 1000);
+    // this.TestInterval = setInterval(() => {
+    //   this.resetToken();
+    // }, 1800000);
   }
 
-  logout() {
+  decode(){
+    this.decodedToken = jwt_decode(this.DataTokenLogin.accessToken);
+    console.log('///////////////////', this.decodedToken);
+  }
+
+async logout() {
+  // this.DataTokenLogin = await this.serviceLogin.Token();
+    this.DataTokenLogin = await this.serviceLogin.Token();
     const body: ReqLogoutUser = {
       token: this.DataTokenLogin.accessToken
     };
     this.callApi.logoutUser(body).subscribe(
       (res) => {
+      },
+      (err) => {
         clearInterval(this.TestInterval);
         console.log('Clear', this.TestInterval);
         this.serviceLogin.clearLogin();
+        this.serviceLogin.clearDelete();
+        console.log(`token ${this.serviceLogin.Token()}`);
+        this.broadcaster.emitEvent('test-token', this.login);
         this.router.navigateByUrl('login');
       }
     );
   }
 
-  resetToken() {
+}
 
-    console.log(`aaaaaaaaaaaaaaaaaaaaaa ${this.DataTokenLogin.accessToken}`);
-    const body: ReqRefreshToken = {
-      token: this.DataTokenLogin.refreshToken
-    };
-    console.log('1');
-    this.callApi.refreshToken(body).subscribe(
-      (res) => {
-        console.log('2');
-        this.DataTokenLogin.accessToken = res.accessToken;
-        console.log('this token ------------------------>', this.DataTokenLogin.accessToken);
-      },
-      (err) => {
-        console.log('3');
-        console.log('เข้า ree นะ', err);
-      }
-    );
-  }
-
+export interface BroadcasterToken {
+  accessToken: string;
+  refreshToken: string;
 }

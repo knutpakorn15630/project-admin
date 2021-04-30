@@ -4,6 +4,8 @@ import { NgBroadcasterService } from 'ngx-broadcaster';
 import { ReqLogins, ResLogins } from 'src/app/service-interface/interface-login';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-component-login',
@@ -29,11 +31,21 @@ export class ComponentLoginComponent implements OnInit {
     UserName: '',
     password: '',
   };
+  decoded;
+  data = {
+    message: 'Hello World',
+  };
+  testlogout: string;
+
 
   // tslint:disable-next-line:max-line-length
   constructor(private callApi: ApiserviceService, private router: Router, private serviceLogin: ServiceLoginService, private broadcaster: NgBroadcasterService) { }
 
   ngOnInit(): void {
+    this.broadcaster.listen('test-token').subscribe(res => {
+      this.testlogout = res.message;
+      console.log(`this test login component ${this.testlogout}`);
+    });
   }
 
 
@@ -45,14 +57,21 @@ export class ComponentLoginComponent implements OnInit {
     this.callApi.getLogin(body).subscribe(
       (res) => {
         this.DataLogin = res;
-        if (!res) {
-
-        } else {
-          setTimeout(() => {
-            this.serviceLogin.setLogin(res);
-          }, 200);
-          this.router.navigateByUrl('/dashboard/user');
-        }
+        setTimeout(() => {
+          this.serviceLogin.setLogin(res);
+          this.broadcaster.emitEvent('test-token', res);
+        }, 500);
+        this.router.navigateByUrl('/dashboard/user');
+      },
+      (err) => {
+        console.log(`login err ${err}`);
+        Swal.fire({
+          icon: 'warning',
+          title: 'รหัสผ่านไม่ถูกต้อง',
+          showConfirmButton: false,
+          timer: 2500
+        });
+        return;
       }
     );
   }

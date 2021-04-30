@@ -67,3 +67,16 @@ export interface ReqLogoutUser {
     token: string;
 }
 
+
+// GetData ผ่านทาง Token
+
+export interface ResTokenData {
+    id: number;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    password: string;
+    createdAt: string;
+    updatedAt: string;
+}
+

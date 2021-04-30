@@ -10,8 +10,6 @@ export class ServiceLoginService {
 
   DataToken: ResTokenService = null;
 
-
-
   constructor(private broadcaster: NgBroadcasterService) { }
 
   getLogin() {
@@ -21,7 +19,6 @@ export class ServiceLoginService {
 
   setLogin(Token: ResDataLogin) {
     const isLogin2: ResDataLogin = Token;
-    this.broadcaster.emitEvent('token-login', Token);
     localStorage.setItem('login', JSON.stringify(isLogin2));
   }
 
@@ -30,11 +27,20 @@ export class ServiceLoginService {
     localStorage.removeItem('login');
   }
 
-  Token() {
+  async delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async Token() {
     if (this.getLogin()) {
+      await this.delay(1000);
       this.DataToken = JSON.parse(this.getLogin());
       return this.DataToken;
     }
+  }
+
+  clearDelete() {
+    this.DataToken = null;
   }
 
 }
