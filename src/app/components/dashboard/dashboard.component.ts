@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
 
     this.TestInterval = setInterval(() => {
       this.resetToken();
-    }, 1800000);
+    }, 1000);
   }
 
   logout() {
