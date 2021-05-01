@@ -59,11 +59,11 @@ export class DashboardComponent implements OnInit {
       this.resetToken();
     }, 50000);
 
-    this.broadcaster.listen('token-login').subscribe(res => {
-      this.BroadCasToken = res;
-      this.decodedToken = jwt_decode(this.BroadCasToken.accessToken);
-      console.log('///////////////////', this.decodedToken.name);
-    });
+    // this.broadcaster.listen('token-login').subscribe(res => {
+    //   this.BroadCasToken = res;
+    //   this.decodedToken = jwt_decode(this.BroadCasToken.accessToken);
+    //   console.log('///////////////////', this.decodedToken.name);
+    // });
 
     // this.broadcaster.listen('test-token').subscribe(res => {
     //   this.BroadCasToken = res;
