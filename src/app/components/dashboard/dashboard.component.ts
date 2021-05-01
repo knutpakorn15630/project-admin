@@ -29,7 +29,7 @@ export const ROUTES: RouteInfo[] = [
 export class DashboardComponent implements OnInit {
   menuItems: any[];
 
-  DataTokenLogin;
+  DataTokenLogin: ResLogin2;
 
   DataTokenBearer: ResKeyToken = null;
 
@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
     private serviceLogin: ServiceLoginService,
     public router: Router,
     private broadcaster: NgBroadcasterService) {
+
   }
 
   TestInterval;
@@ -54,19 +55,25 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     // setInterval(this.resetToken, 10000);
-    // this.TestInterval = setInterval(() => {
-    //   this.resetToken();
-    // }, 1800000);
+    this.TestInterval = setInterval(() => {
+      this.resetToken();
+    }, 50000);
+
+    this.broadcaster.listen('token-login').subscribe(res => {
+      this.BroadCasToken = res;
+      this.decodedToken = jwt_decode(this.BroadCasToken.accessToken);
+      console.log('///////////////////', this.decodedToken.name);
+    });
+
+    // this.broadcaster.listen('test-token').subscribe(res => {
+    //   this.BroadCasToken = res;
+    //   console.log(`บอดแคช  ${this.BroadCasToken.accessToken}`);
+    // });
   }
 
-  decode(){
-    this.decodedToken = jwt_decode(this.DataTokenLogin.accessToken);
-    console.log('///////////////////', this.decodedToken);
-  }
-
-async logout() {
-  // this.DataTokenLogin = await this.serviceLogin.Token();
-    this.DataTokenLogin = await this.serviceLogin.Token();
+  logout() {
+    // this.DataTokenLogin = await this.serviceLogin.Token();
+    this.DataTokenLogin = this.serviceLogin.Token();
     const body: ReqLogoutUser = {
       token: this.DataTokenLogin.accessToken
     };
@@ -77,10 +84,31 @@ async logout() {
         clearInterval(this.TestInterval);
         console.log('Clear', this.TestInterval);
         this.serviceLogin.clearLogin();
-        this.serviceLogin.clearDelete();
+        // this.serviceLogin.clearDelete();
         console.log(`token ${this.serviceLogin.Token()}`);
         this.broadcaster.emitEvent('test-token', this.login);
         this.router.navigateByUrl('login');
+      }
+    );
+  }
+
+  resetToken() {
+    this.DataTokenLogin = this.serviceLogin.Token();
+    console.log(`aaaaaaaaaaaaaaaaaaaaaa ${this.DataTokenLogin.accessToken}`);
+    const body: ReqRefreshToken = {
+      token: this.DataTokenLogin.refreshToken
+    };
+    console.log('1');
+    this.callApi.refreshToken(body).subscribe(
+      (res) => {
+        console.log('2');
+        this.DataTokenLogin.accessToken = res.accessToken;
+        this.broadcaster.emitEvent('token-login', res);
+        console.log('this token ------------------------>', this.DataTokenLogin.accessToken);
+      },
+      (err) => {
+        console.log('3');
+        console.log('เข้า ree นะ', err);
       }
     );
   }

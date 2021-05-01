@@ -28,4 +28,9 @@ export interface ResKeyToken {
 }
 
 
+export interface ResDataLogin {
+    accessToken: string;
+    refreshToken: string;
+}
+
 

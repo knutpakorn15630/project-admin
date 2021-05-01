@@ -12,10 +12,11 @@ import { ComponentShopComponent } from './components/component-shop/component-sh
 import { ComponentMapComponent } from './components/component-map/component-map.component';
 import { ComponentLoginComponent } from './components/component-login/component-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
+import { ErrorInterceptor } from './interceptor';
 
 
 @NgModule({
@@ -40,7 +41,13 @@ import { GoogleMapNewComponent } from './components/google-map-new/google-map-ne
     HttpClientModule,
     GoogleMapsModule
   ],
-  providers: [GoogleMapNewComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

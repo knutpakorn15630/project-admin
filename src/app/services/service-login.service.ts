@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgBroadcasterService } from 'ngx-broadcaster';
 import { ResLogins } from '../service-interface/interface-login';
-import { ResTokenService } from '../service-interface/token';
+import { ResDataLogin, ResTokenService } from '../service-interface/token';
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +31,8 @@ export class ServiceLoginService {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async Token() {
+  Token() {
     if (this.getLogin()) {
-      await this.delay(1000);
       this.DataToken = JSON.parse(this.getLogin());
       return this.DataToken;
     }
@@ -45,9 +44,6 @@ export class ServiceLoginService {
 
 }
 
-export interface ResDataLogin {
-  accessToken: string;
-  refreshToken: string;
-}
+
 
 

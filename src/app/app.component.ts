@@ -12,7 +12,6 @@ import { ServiceLoginService } from './services/service-login.service';
 })
 export class AppComponent implements OnInit {
 
-  DataTokenLogin: ResLogin2;
   Datatest: ResBroadCas;
   title = 'project-admin';
   TestInterval;
@@ -28,29 +27,9 @@ export class AppComponent implements OnInit {
       console.log(`this test login component ${this.Datatest.accessToken}`);
     });
 
+
   }
 
-
-//   resetToken() {
-
-//     console.log(`aaaaaaaaaaaaaaaaaaaaaa ${this.DataTokenLogin.accessToken}`);
-//     const body: ReqRefreshToken = {
-//       token: this.DataTokenLogin.refreshToken
-//     };
-//     console.log('1');
-//     this.callApi.refreshToken(body).subscribe(
-//       (res) => {
-//         console.log('2');
-//         this.DataTokenLogin.accessToken = res.accessToken;
-//         this.broadcaster.emitEvent('token-login', res.accessToken);
-//         console.log('this token ------------------------>', this.DataTokenLogin.accessToken);
-//       },
-//       (err) => {
-//         console.log('3');
-//         console.log('เข้า ree นะ', err);
-//       }
-//     );
-//   }
 }
 
 export interface ResBroadCas {
