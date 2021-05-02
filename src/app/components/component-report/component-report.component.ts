@@ -1,15 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ReqCreateReport, ReqReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
+import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 declare var $: any;
+
+@Injectable()
+export class CustomAdapter extends NgbDateAdapter<string> {
+
+  readonly DELIMITER = '-';
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      const date = value.split(this.DELIMITER);
+      return {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+  }
+}
+
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      const date = value.split(this.DELIMITER);
+      return {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  format(date: NgbDateStruct | null): string {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
+  }
+}
+
 
 @Component({
   selector: 'app-component-report',
   templateUrl: './component-report.component.html',
-  styleUrls: ['./component-report.component.scss']
+  styleUrls: ['./component-report.component.scss'],
+  providers: [
+    {provide: NgbDateAdapter, useClass: CustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
+  ]
 })
 export class ComponentReportComponent implements OnInit {
+  model1: string;
+  model2: string;
 
   DataReport: ResReport = null;
 
@@ -47,14 +99,16 @@ export class ComponentReportComponent implements OnInit {
     }
   });
 
-  constructor(private callApi: ApiserviceService) { }
+  constructor(private callApi: ApiserviceService, private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>) { }
 
   ngOnInit(): void {
     this.showReport();
     this.createResReport();
   }
 
-
+  get today() {
+    return this.dateAdapter.toModel(this.ngbCalendar.getToday());
+  }
 
   showReport() {
     const body: ReqReport = {

@@ -4,6 +4,12 @@ import { ResLogin2, ResLogins } from './service-interface/interface-login';
 import { ReqRefreshToken } from './service-interface/token';
 import { ApiserviceService } from './services/apiservice.service';
 import { ServiceLoginService } from './services/service-login.service';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
 
 @Component({
   selector: 'app-root',
