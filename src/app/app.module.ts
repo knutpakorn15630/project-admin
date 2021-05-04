@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
 import { ErrorInterceptor } from './interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -42,11 +43,9 @@ import { ErrorInterceptor } from './interceptor';
     GoogleMapsModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    }
+    { provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
   ],
   bootstrap: [AppComponent]
 })

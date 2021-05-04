@@ -1,4 +1,4 @@
-<div *ngIf="DataReport" class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -12,8 +12,8 @@
                                 <input class="form-control" placeholder="dd/mm/yyyy" name="d2" #c2="ngModel"
                                     [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
                                 <div class="input-group-append">
-                                    <button class="btn bg-teal calendar" (click)="d2.toggle()"
-                                        type="button"><i class="fas fa-calendar-alt"></i></button>
+                                    <button class="btn bg-teal calendar" (click)="d2.toggle()" type="button"><i
+                                            class="fas fa-calendar-alt"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,8 @@
                         </div>
                         <!-- /.card-body -->
                         <!-- .card-footer -->
-                        <div class="card-footer clearfix">
+                        <div class="card-footer clearfix"
+                            *ngIf="DataReport || DataReport.data || DataReport.data.length > 0">
                             <span class="pagination pagination-sm m-0 float-right">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
