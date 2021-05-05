@@ -1,24 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ComponentUserComponent } from './components/component-user/component-user.component';
-import { ComponentReportComponent } from './components/component-report/component-report.component';
-import { ComponentDeliveryComponent } from './components/component-delivery/component-delivery.component';
-import { ComponentShopComponent } from './components/component-shop/component-shop.component';
-import { ComponentMapComponent } from './components/component-map/component-map.component';
-import { ComponentLoginComponent } from './components/component-login/component-login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ComponentDeliveryComponent } from './components/component-delivery/component-delivery.component';
+import { ComponentLoginComponent } from './components/component-login/component-login.component';
+import { ComponentMapComponent } from './components/component-map/component-map.component';
+import { ComponentReportComponent } from './components/component-report/component-report.component';
+import { ComponentShopComponent } from './components/component-shop/component-shop.component';
+import { ComponentUserComponent } from './components/component-user/component-user.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
-import { ErrorInterceptor } from './interceptor';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
+import { InterceptorInterceptor } from './services/interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +28,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ComponentShopComponent,
     ComponentMapComponent,
     ComponentLoginComponent,
-    GoogleMapNewComponent
+    GoogleMapNewComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,19 +38,19 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     RouterModule,
     NgbModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
+      useClass: InterceptorInterceptor,
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
