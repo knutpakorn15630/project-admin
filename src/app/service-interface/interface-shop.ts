@@ -17,36 +17,40 @@ export interface ResShowShop {
 export interface ResDataShop {
     id: number;
     name: string;
+    day_cycle: number;
     status: string;
-    latitude: string;
-    longitude: string;
+    color: string;
+    latitude: number;
+    longitude: number;
     startDate: any;
     endDate: any;
     createdAt: any;
     updatedAt: any;
-    chauffeurId: any;
+    chauffeurId: number;
+    statusId: any;
 }
 
 // CreateShop----------------------------------------------------------------------
 
 export interface ReqCreateShop {
     name: string;
-    status: string;
-    la: string;
-    long: string;
-    chauffeurId: number;
+    day_cycle: number;
+    latitude: number;
+    longitude: number;
 }
 
 
 export interface ResDataCreateShop {
     id: number;
     name: string;
+    day_cycle: number;
     status: string;
-    latitude: string;
-    longitude: string;
+    color: string;
+    latitude: number;
+    longitude: number;
     startDate: string;
     endDate: string;
-    chauffeurId: number;
+    statusId: number;
     updatedAt: string;
     createdAt: string;
 }
@@ -80,7 +84,7 @@ export interface ReqUpdateShop {
 }
 
 
-export interface ResUpdateShop{
+export interface ResUpdateShop {
     id: number;
     name: string;
     status: string;

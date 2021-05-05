@@ -50,13 +50,22 @@ export interface ReqDeleteUser {
 
 
 export interface ReqUpdateUser {
-    token: string;
-    id: number;
+    id: string;
     password: string;
     firstName: string;
     lastName: string;
     userName: string;
     passwordNew: string;
+}
+
+export interface ResUpdateUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    password: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 

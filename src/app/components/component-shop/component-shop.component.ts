@@ -27,11 +27,9 @@ export class ComponentShopComponent implements OnInit {
 
   ngCreate = {
     name: '',
-    status: '',
+    day: '',
     la: '',
     long: '',
-    chauffeurId: '',
-    id: ''
   };
 
   Toast = Swal.mixin({
@@ -51,7 +49,7 @@ export class ComponentShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDataShop();
-    this.GetDataChauffeur();
+    // this.GetDataChauffeur();
   }
 
   GetDataChauffeur() {
@@ -107,15 +105,14 @@ export class ComponentShopComponent implements OnInit {
   }
 
   CreateDataShop() {
-    const GetIdChauffeur = this.GetChauffeur.data.find((x) => x.id + ' ' + x.firstName + ' ' + x.lastName === this.ngCreate.chauffeurId);
+    // const GetIdChauffeur = this.GetChauffeur.data.find((x) => x.id + ' ' + x.firstName + ' ' + x.lastName === this.ngCreate.chauffeurId);
     const body: ReqCreateShop = {
       name: this.ngCreate.name,
-      status: this.ngCreate.status,
-      la: this.ngCreate.la,
-      long: this.ngCreate.long,
-      chauffeurId: GetIdChauffeur.id
+      day_cycle: Number(this.ngCreate.day),
+      latitude: Number(this.ngCreate.la),
+      longitude: Number(this.ngCreate.long),
     };
-    if (!this.ngCreate.name || !this.ngCreate.status || !this.ngCreate.la || !this.ngCreate.long) {
+    if (!this.ngCreate.name || !this.ngCreate.day || !this.ngCreate.la || !this.ngCreate.long) {
       Swal.fire({
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบ!',
@@ -127,9 +124,12 @@ export class ComponentShopComponent implements OnInit {
     } else {
       this.callApi.CreateShop(body).subscribe(
         (res) => {
+          this.Toast.fire({
+            icon: 'success',
+            title: 'เพิ่มข้อมูลสำเร็จ'
+          });
           this.isCheck = false;
           this.Data = res;
-          console.log(`this. Data ${this.Data.chauffeurId}`);
           this.loadDataShop();
           this.clearForm();
           this.hideModal();
@@ -138,40 +138,40 @@ export class ComponentShopComponent implements OnInit {
     }
   }
 
-  ShowUpdateShop(id: number) {
-    const DateShowShop = this.DataShop.data.find((a) => a.id === id);
-    if (!DateShowShop) {
-      return;
-    }
-    this.ngCreate = {
-      name: DateShowShop.name,
-      status: DateShowShop.status,
-      la: DateShowShop.latitude,
-      long: DateShowShop.longitude,
-      chauffeurId: DateShowShop.chauffeurId,
-      id: DateShowShop.id.toString()
-    };
-    this.open();
-  }
+  // ShowUpdateShop(id: number) {
+  //   const DateShowShop = this.DataShop.data.find((a) => a.id === id);
+  //   if (!DateShowShop) {
+  //     return;
+  //   }
+  //   this.ngCreate = {
+  //     name: DateShowShop.name,
+  //     status: DateShowShop.status,
+  //     la: DateShowShop.latitude,
+  //     long: DateShowShop.longitude,
+  //     chauffeurId: DateShowShop.chauffeurId,
+  //     id: DateShowShop.id.toString()
+  //   };
+  //   this.open();
+  // }
 
   updateShop() {
-    const body: ReqUpdateShop = {
-      id: Number(this.ngCreate.id),
-      name: this.ngCreate.name,
-      status: this.ngCreate.status,
-      la: this.ngCreate.la,
-      long: this.ngCreate.long
-    };
-    this.callApi.UpdateShop(body).subscribe(
-      (res) => {
-        this.Toast.fire({
-          icon: 'success',
-          title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
-        });
-        this.loadDataShop();
-        this.hideModal2();
-      }
-    );
+    // const body: ReqUpdateShop = {
+    //   id: Number(this.ngCreate.id),
+    //   name: this.ngCreate.name,
+    //   status: this.ngCreate.status,
+    //   la: this.ngCreate.la,
+    //   long: this.ngCreate.long
+    // };
+    // this.callApi.UpdateShop(body).subscribe(
+    //   (res) => {
+    //     this.Toast.fire({
+    //       icon: 'success',
+    //       title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
+    //     });
+    //     this.loadDataShop();
+    //     this.hideModal2();
+    //   }
+    // );
   }
 
   deleteDateShop(id: number) {
@@ -192,11 +192,9 @@ export class ComponentShopComponent implements OnInit {
   clearForm() {
     this.ngCreate = {
       name: '',
-      status: '',
+      day: '',
       la: '',
       long: '',
-      chauffeurId: '',
-      id: ''
     };
   }
 

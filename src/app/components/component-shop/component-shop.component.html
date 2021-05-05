@@ -58,8 +58,9 @@
                                         <td>{{item.latitude}}</td>
                                         <td>{{item.longitude}}</td>
                                         <td><button type="button" class="btn btn-block bg-teal"
-                                                (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
+                                                >แก้ไขข้อมูล</button>
                                         </td>
+                                        <!-- (click)="ShowUpdateShop(item.id)" -->
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
                                     </tr>
@@ -111,7 +112,7 @@
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
                             <input type="number" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
-                                [(ngModel)]="ngCreate.status" [ngClass]="{'is-invalid': isCheck&&!ngCreate.status}">
+                                [(ngModel)]="ngCreate.day" [ngClass]="{'is-invalid': isCheck&&!ngCreate.day}">
                         </div>
                     </div>
                 </div>
@@ -165,7 +166,7 @@
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
                             <input type="text" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
-                                [(ngModel)]="ngCreate.status">
+                                [(ngModel)]="ngCreate.day">
                         </div>
                     </div>
                 </div>

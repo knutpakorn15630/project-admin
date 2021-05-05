@@ -24,7 +24,7 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped" *ngIf="DataUser && DataUser.data">
+                            <table class="table table-striped" >
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -132,7 +132,7 @@
                         <div class="form-group">
                             <label>ชื่อ</label>
                             <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
-                                [(ngModel)]="ngUpdate.userName">
+                                [(ngModel)]="ngUpdate.firstName">
                         </div>
                     </div>
                     <div class="col-6">
@@ -148,7 +148,7 @@
                         <div class="form-group">
                             <label>ยืนยัน password ก่อนจะแก้ไขข้อมูล</label>
                             <input type="password" class="form-control" placeholder="Password" name="name"
-                                [(ngModel)]="ngUpdate.passwordNew">
+                                [(ngModel)]="testPassWord">
                         </div>
                     </div>
                 </div>

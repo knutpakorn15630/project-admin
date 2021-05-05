@@ -34,7 +34,7 @@ export class ApiserviceService {
   // User---------------------------------------------------------------------------------------------------------------
 
   public showUser(): Observable<ResShowUser> {
-    return this.httpApiClient.get<ResShowUser>(`${this.apiUrl}/api/user/get`);
+    return this.httpApiClient.get<ResShowUser>(`${this.apiUrl}/api/user/gets`);
   }
 
   public createUser(body: ReqCreateUser): Observable<ResCreateUser> {

@@ -55,9 +55,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     // setInterval(this.resetToken, 10000);
-    this.TestInterval = setInterval(() => {
-      this.resetToken();
-    }, 50000);
+    // this.TestInterval = setInterval(() => {
+    //   this.resetToken();
+    // }, 50000);
 
     // this.broadcaster.listen('token-login').subscribe(res => {
     //   this.BroadCasToken = res;

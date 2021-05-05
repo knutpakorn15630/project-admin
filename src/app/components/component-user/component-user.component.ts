@@ -29,7 +29,6 @@ export class ComponentUserComponent implements OnInit {
   };
 
   ngUpdate = {
-    token: '',
     id: '',
     password: '',
     firstName: '',
@@ -37,6 +36,8 @@ export class ComponentUserComponent implements OnInit {
     userName: '',
     passwordNew: '',
   };
+
+  testPassWord = '';
 
   isCheck = false;
 
@@ -76,6 +77,7 @@ export class ComponentUserComponent implements OnInit {
     this.callApi.showUser().subscribe(
       (res) => {
         this.DataUser = res;
+        console.log('DataUser', this.DataUser);
       }
     );
   }
@@ -83,7 +85,7 @@ export class ComponentUserComponent implements OnInit {
   createUer() {
     const body: ReqCreateUser = {
       firstName: this.ngMember.name,
-      lastName:  this.ngMember.lastName,
+      lastName: this.ngMember.lastName,
       userName: this.ngMember.user,
       password: this.ngMember.pass
     };
@@ -118,7 +120,6 @@ export class ComponentUserComponent implements OnInit {
       return;
     }
     this.ngUpdate = {
-      token: this.DataToken.accessToken,
       id: Result.id.toString(),
       password: Result.password,
       firstName: Result.firstName,
@@ -131,32 +132,23 @@ export class ComponentUserComponent implements OnInit {
 
   updateUser() {
     const body: ReqUpdateUser = {
-      token: this.DataToken.accessToken,
-      id: Number(this.ngUpdate.id),
-      password: this.ngUpdate.password,
+      id: this.ngUpdate.id,
+      password: this.testPassWord,
       firstName: this.ngUpdate.firstName,
       lastName: this.ngUpdate.lastName,
       userName: this.ngUpdate.userName,
       passwordNew: this.ngUpdate.passwordNew
     };
 
-    if (!this.ngUpdate.firstName || !this.ngUpdate.lastName || !this.ngUpdate.passwordNew) {
+    if (!this.ngUpdate.firstName || !this.ngUpdate.lastName || !this.testPassWord) {
+
       Swal.fire({
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบ!',
         showConfirmButton: false,
         timer: 1000
       });
-      return;
-    }
 
-    if (this.ngUpdate.password !== this.ngUpdate.passwordNew) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'รหัสผ่านไม่ถูกต้อง !',
-        showConfirmButton: false,
-        timer: 1000
-      });
       return;
     }
 
@@ -169,6 +161,15 @@ export class ComponentUserComponent implements OnInit {
         console.log('this is dada ', res);
         this.loadDataUser();
         this.hideModal2();
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'รหัสผ่านไม่ถูกต้อง!',
+          showConfirmButton: false,
+          timer: 1000
+        });
+        console.log(err);
       }
     );
   }
@@ -199,7 +200,6 @@ export class ComponentUserComponent implements OnInit {
 
   DataNull() {
     this.ngUpdate = {
-      token: '',
       id: '',
       password: '',
       firstName: '',
