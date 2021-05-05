@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgBroadcasterService } from 'ngx-broadcaster';
-import { ReqLogins, ResLogins } from 'src/app/service-interface/interface-login';
+import {
+  ReqLogins,
+  ResLogins,
+} from 'src/app/service-interface/interface-login';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-component-login',
   templateUrl: './component-login.component.html',
-  styleUrls: ['./component-login.component.scss']
+  styleUrls: ['./component-login.component.scss'],
 })
 export class ComponentLoginComponent implements OnInit {
-
   DataLogin: ResLogins = null;
 
   input = {
@@ -37,22 +38,43 @@ export class ComponentLoginComponent implements OnInit {
   };
   testlogout: string;
 
-
   // tslint:disable-next-line:max-line-length
-  constructor(private callApi: ApiserviceService, private router: Router, private serviceLogin: ServiceLoginService, private broadcaster: NgBroadcasterService) { }
+  constructor(
+    private callApi: ApiserviceService,
+    private router: Router,
+    private serviceLogin: ServiceLoginService,
+    private broadcaster: NgBroadcasterService
+  ) {}
 
   ngOnInit(): void {
-    this.broadcaster.listen('test-token').subscribe(res => {
+    const inputs = document.querySelectorAll('.input');
+
+    function addFocus() {
+      const parent = this.parentNode.parentNode;
+      parent.classList.add('focus');
+    }
+
+    function removeFocus() {
+      const parent = this.parentNode.parentNode;
+      if (this.value === '') {
+        parent.classList.remove('focus');
+      }
+    }
+
+    inputs.forEach((input) => {
+      input.addEventListener('focus', addFocus);
+      input.addEventListener('blur', removeFocus);
+    });
+    this.broadcaster.listen('test-token').subscribe((res) => {
       this.testlogout = res.message;
       console.log(`this test login component ${this.testlogout}`);
     });
   }
 
-
   Logined() {
     const body: ReqLogins = {
       userName: this.LoginCreate.UserName,
-      password: this.LoginCreate.password
+      password: this.LoginCreate.password,
     };
     this.callApi.getLogin(body).subscribe(
       (res) => {
@@ -69,11 +91,10 @@ export class ComponentLoginComponent implements OnInit {
           icon: 'warning',
           title: 'รหัสผ่านไม่ถูกต้อง',
           showConfirmButton: false,
-          timer: 2500
+          timer: 2500,
         });
         return;
       }
     );
   }
-
 }
