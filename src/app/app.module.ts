@@ -43,8 +43,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     GoogleMapsModule
   ],
   providers: [
-    { provide: LocationStrategy,
+    {
+      provide: LocationStrategy,
       useClass: HashLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent]

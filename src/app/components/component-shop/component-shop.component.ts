@@ -17,6 +17,8 @@ export class ComponentShopComponent implements OnInit {
 
   GetChauffeur: ResDataChauffeur = null;
 
+  isCheck = false;
+
   ngPang = {
     perPage: 10,
     Pang: 1,
@@ -113,16 +115,27 @@ export class ComponentShopComponent implements OnInit {
       long: this.ngCreate.long,
       chauffeurId: GetIdChauffeur.id
     };
-
-    this.callApi.CreateShop(body).subscribe(
-      (res) => {
-        this.Data = res;
-        console.log(`this. Data ${this.Data.chauffeurId}`);
-        this.loadDataShop();
-        this.clearForm();
-        this.hideModal();
-      }
-    );
+    if (!this.ngCreate.name || !this.ngCreate.status || !this.ngCreate.la || !this.ngCreate.long) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.isCheck = true;
+      return;
+    } else {
+      this.callApi.CreateShop(body).subscribe(
+        (res) => {
+          this.isCheck = false;
+          this.Data = res;
+          console.log(`this. Data ${this.Data.chauffeurId}`);
+          this.loadDataShop();
+          this.clearForm();
+          this.hideModal();
+        }
+      );
+    }
   }
 
   ShowUpdateShop(id: number) {

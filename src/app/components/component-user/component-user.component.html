@@ -30,7 +30,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>ชื่อ-นามสกุล</th>
                                         <th style="width: 150px"></th>
-                                        <th style="width: 150px"></th>
+                                        <!-- <th style="width: 150px"></th> -->
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataUser || DataUser.data || DataUser.data.length > 1">
@@ -40,8 +40,8 @@
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="UpdateData(item.id)">แก้ไขข้อมูล</button></td>
 
-                                        <td><button type="button" class="btn btn-block bg-teal"
-                                                (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
+                                        <!-- <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteUser(item.id)">ลบข้อมูล</button></td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataUser || !DataUser.data || DataUser.data.length == 0">
@@ -76,14 +76,14 @@
                         <div class="form-group">
                             <label>ชื่อ</label>
                             <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
-                                [(ngModel)]="ngMember.name">
+                                [(ngModel)]="ngMember.name" [ngClass]="{'is-invalid': isCheck&&!ngMember.name}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>นามสกุล</label>
                             <input type="text" class="form-control" placeholder="นามสกุล..." name="lastName"
-                                [(ngModel)]="ngMember.lastName">
+                                [(ngModel)]="ngMember.lastName" [ngClass]="{'is-invalid': isCheck&&!ngMember.lastName}">
                         </div>
                     </div>
                 </div>
@@ -94,14 +94,14 @@
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control" placeholder="Username..." name="username"
-                                [(ngModel)]="ngMember.user">
+                                [(ngModel)]="ngMember.user" [ngClass]="{'is-invalid': isCheck&&!ngMember.user}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>Password</label>
                             <input type="password" class="form-control" placeholder="Password..." name="password"
-                                [(ngModel)]="ngMember.pass">
+                                [(ngModel)]="ngMember.pass" [ngClass]="{'is-invalid': isCheck&&!ngMember.pass}">
                         </div>
                     </div>
                 </div>

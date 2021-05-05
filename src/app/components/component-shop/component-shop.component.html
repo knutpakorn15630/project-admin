@@ -2,8 +2,21 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                     <h1>ร้านค้า</h1>
+                </div>
+                <div class="col-5">
+                    <div class="form-inline float-right">
+                        <div class="input-group" data-widget="sidebar-search">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                                aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar bg-teal">
+                                    <i class="fas fa-fw fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-2">
                     <button type="button" class="btn btn-block bg-teal float-right"
@@ -91,51 +104,30 @@
                         <div class="form-group">
                             <label>ชื่อร้าน</label>
                             <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
-                                [(ngModel)]="ngCreate.name">
+                                [(ngModel)]="ngCreate.name" [ngClass]="{'is-invalid': isCheck&&!ngCreate.name}">
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
                             <input type="number" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
-                                [(ngModel)]="ngCreate.status">
+                                [(ngModel)]="ngCreate.status" [ngClass]="{'is-invalid': isCheck&&!ngCreate.status}">
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label>ชื่อพนังงาน</label>
-                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
-                                tabindex="-1" aria-hidden="true" placeholder="เลือกชื่อหนักงาน"
-                                [(ngModel)]="ngCreate.chauffeurId">
-                                <option *ngIf="!GetChauffeur || !GetChauffeur.data || GetChauffeur.data.length < 0">
-                                    ----------- ไม่มีข้อมูล -----------</option>
-                                <option selected>------------------------- เลือกชื่อร้านค้า -------------------------
-                                </option>
-                                <option *ngFor="let item2 of GetChauffeur.data">{{item2.id + ' ' + item2.firstName + ' '
-                                    + item2.lastName}}</option>
-                            </select>
-
-                        </div>
-                    </div>
-                </div> -->
-
-
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label>ละติจูด</label>
                             <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
-                                [(ngModel)]="ngCreate.la">
+                                [(ngModel)]="ngCreate.la" [ngClass]="{'is-invalid': isCheck&&!ngCreate.la}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>ลองจิจูด</label>
-                            <input type="password" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
-                                [(ngModel)]="ngCreate.long">
+                            <input type="text" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
+                                [(ngModel)]="ngCreate.long" [ngClass]="{'is-invalid': isCheck&&!ngCreate.long}">
                         </div>
                     </div>
                 </div>

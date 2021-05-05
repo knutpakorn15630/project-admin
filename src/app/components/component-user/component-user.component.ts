@@ -38,6 +38,8 @@ export class ComponentUserComponent implements OnInit {
     passwordNew: '',
   };
 
+  isCheck = false;
+
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -81,7 +83,7 @@ export class ComponentUserComponent implements OnInit {
   createUer() {
     const body: ReqCreateUser = {
       firstName: this.ngMember.name,
-      lastName: this.ngMember.lastName,
+      lastName:  this.ngMember.lastName,
       userName: this.ngMember.user,
       password: this.ngMember.pass
     };
@@ -92,8 +94,10 @@ export class ComponentUserComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       });
+      this.isCheck = true;
       return;
     } else {
+      this.isCheck = false;
       this.callApi.createUser(body).subscribe(
         (res) => {
           this.Toast.fire({
@@ -193,7 +197,7 @@ export class ComponentUserComponent implements OnInit {
     };
   }
 
-  DataNull(){
+  DataNull() {
     this.ngUpdate = {
       token: '',
       id: '',

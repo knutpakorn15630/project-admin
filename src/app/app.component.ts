@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgBroadcasterService } from 'ngx-broadcaster';
-import { ResLogin2, ResLogins } from './service-interface/interface-login';
 import { ReqRefreshToken } from './service-interface/token';
 import { ApiserviceService } from './services/apiservice.service';
 import { ServiceLoginService } from './services/service-login.service';
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
       this.Datatest = res;
       console.log(`this test login component ${this.Datatest.accessToken}`);
     });
-
 
   }
 

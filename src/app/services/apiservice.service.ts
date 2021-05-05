@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,10 +21,15 @@ export class ApiserviceService {
   DataToken: ResLogins;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private httpApiClient: HttpClient, private serviceLogin: ServiceLoginService, private serciceToken: ServiceLoginTokenService) {
+  constructor(private httpApiClient: HttpClient, private serviceLogin: ServiceLoginService) {
   }
 
-
+  headerToken() {
+    const header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${this.serviceLogin.Token()}`)
+    };
+  }
 
   // User---------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +38,7 @@ export class ApiserviceService {
   }
 
   public createUser(body: ReqCreateUser): Observable<ResCreateUser> {
-    return this.httpApiClient.post<ResCreateUser>(`${this.apiUrl}/api/user/create`, body);
+    return this.httpApiClient.post<ResCreateUser>(`${this.apiUrl}/api/user/create`, body );
   }
 
   public updateUser(body: ReqUpdateUser): Observable<any> {
@@ -62,7 +67,7 @@ export class ApiserviceService {
     return this.httpApiClient.get<ResGetChauffeur>(`${this.apiUrl}/api/report/getChauffeur`);
   }
 
-  public DeleteReport(id: number): Observable<any>{
+  public DeleteReport(id: number): Observable<any> {
     return this.httpApiClient.delete<any>(`${this.apiUrl}/api/report/delete/${id}`);
   }
 
@@ -107,15 +112,15 @@ export class ApiserviceService {
     return this.httpApiClient.post<ResDataCreateShop>(`${this.apiUrl}/api/shop/createShopUser`, body);
   }
 
-  public GetChauffeur(): Observable<ResDataChauffeur>{
+  public GetChauffeur(): Observable<ResDataChauffeur> {
     return this.httpApiClient.get<ResDataChauffeur>(`${this.apiUrl}/api/shop/dataChauffeur`);
   }
 
-  public UpdateShop(body: ReqUpdateShop): Observable<ResUpdateShop>{
+  public UpdateShop(body: ReqUpdateShop): Observable<ResUpdateShop> {
     return this.httpApiClient.post<ResUpdateShop>(`${this.apiUrl}/api/shop/update`, body);
   }
 
-  public DeleteShop(id: number): Observable<any>{
+  public DeleteShop(id: number): Observable<any> {
     return this.httpApiClient.delete<any>(`${this.apiUrl}/api/shop/delete/${id}`);
   }
 
