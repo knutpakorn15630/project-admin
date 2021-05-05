@@ -7,22 +7,18 @@ import { ComponentShopComponent } from './components/component-shop/component-sh
 import { ComponentUserComponent } from './components/component-user/component-user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
-import { LoginGuard } from './login.guard';
-
+import { LoginGuard } from './services/login.guard';
 
 const routes: Routes = [
-
   {
     path: '',
     redirectTo: '/login',
-    pathMatch: 'full'
-  }
-  ,
+    pathMatch: 'full',
+  },
   {
     path: 'login',
-    component: ComponentLoginComponent
-  }
-  ,
+    component: ComponentLoginComponent,
+  },
   {
     canActivate: [LoginGuard],
     path: 'dashboard',
@@ -30,25 +26,25 @@ const routes: Routes = [
     children: [
       {
         path: 'user',
-        component: ComponentUserComponent
+        component: ComponentUserComponent,
       },
       {
         path: 'report',
-        component: ComponentReportComponent
+        component: ComponentReportComponent,
       },
       {
         path: 'shop',
-        component: ComponentShopComponent
+        component: ComponentShopComponent,
       },
       {
         path: 'delivery',
-        component: ComponentDeliveryComponent
+        component: ComponentDeliveryComponent,
       },
       {
         path: 'mapsNew',
-        component: GoogleMapNewComponent
+        component: GoogleMapNewComponent,
       },
-    ]
+    ],
   },
 
   // {
@@ -59,6 +55,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

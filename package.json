@@ -28,6 +28,7 @@
     "bootstrap": "^4.4.0",
     "ionic-angular": "^3.9.10",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
     "ngx-broadcaster": "0.0.1",
     "rxjs": "~6.5.4",
     "sweetalert2": "^10.16.4",

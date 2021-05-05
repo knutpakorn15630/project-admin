@@ -5,29 +5,33 @@ import { environment } from 'src/environments/environment';
 import { ReqCreateDelivery, ReqDelivery, ResCreateDelivery, ResDataDelivery } from '../service-interface/interface-delivery';
 import { ReqLogins, ResLogins } from '../service-interface/interface-login';
 import { ReqCreateReport, ReqReport, ResCreateReport, ResGetChauffeur, ResGetShop, ResReport } from '../service-interface/interface-report';
-import { ReqCreateShop, ReqShowShop, ReqUpdateShop, ResDataChauffeur, ResDataCreateShop, ResShowShop, ResUpdateShop } from '../service-interface/interface-shop';
+import {
+  ReqCreateShop,
+  ReqShowShop,
+  ReqUpdateShop,
+  ResDataChauffeur,
+  ResDataCreateShop,
+  ResShowShop,
+  ResUpdateShop,
+} from '../service-interface/interface-shop';
 import { ReqCreateUser, ReqLogoutUser, ReqUpdateUser, ResCreateUser, ResShowUser } from '../service-interface/interface-user';
-import { ReqRefreshToken, ResKeyToken, ResRefreshToken } from '../service-interface/token';
-import { ServiceLoginTokenService } from './service-login-token.service';
+import { ReqRefreshToken, ResRefreshToken } from '../service-interface/token';
 import { ServiceLoginService } from './service-login.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiserviceService {
-
   apiUrl = environment.httpApi;
 
   DataToken: ResLogins;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private httpApiClient: HttpClient, private serviceLogin: ServiceLoginService) {
-  }
+  constructor(private httpApiClient: HttpClient, private serviceLogin: ServiceLoginService) {}
 
   headerToken() {
     const header = {
-      headers: new HttpHeaders()
-        .set('Authorization', `Bearer ${this.serviceLogin.Token()}`)
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.serviceLogin.Token()}`),
     };
   }
 
@@ -38,7 +42,7 @@ export class ApiserviceService {
   }
 
   public createUser(body: ReqCreateUser): Observable<ResCreateUser> {
-    return this.httpApiClient.post<ResCreateUser>(`${this.apiUrl}/api/user/create`, body );
+    return this.httpApiClient.post<ResCreateUser>(`${this.apiUrl}/api/user/create`, body);
   }
 
   public updateUser(body: ReqUpdateUser): Observable<any> {
@@ -71,7 +75,6 @@ export class ApiserviceService {
     return this.httpApiClient.delete<any>(`${this.apiUrl}/api/report/delete/${id}`);
   }
 
-
   // Login/Token/Logout---------------------------------------------------------------------------------------------------
 
   public getLogin(body: ReqLogins): Observable<ResLogins> {
@@ -85,8 +88,6 @@ export class ApiserviceService {
   public logoutUser(body: ReqLogoutUser): Observable<any> {
     return this.httpApiClient.post<any>(`${this.apiUrl}/api/user/logout`, body);
   }
-
-
 
   // Delivery------------------------------------------------------------------------------------------------------------
 
@@ -123,6 +124,4 @@ export class ApiserviceService {
   public DeleteShop(id: number): Observable<any> {
     return this.httpApiClient.delete<any>(`${this.apiUrl}/api/shop/delete/${id}`);
   }
-
-
 }
