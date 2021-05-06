@@ -24,7 +24,8 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped" *ngIf="DataDelivery && DataDelivery.data && DataDelivery.data.length > 0">
+                            <table class="table table-striped"
+                                *ngIf="DataDelivery && DataDelivery.data && DataDelivery.data.length > 0">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -41,7 +42,8 @@
                                         <td>{{item.firstName}}</td>
                                         <td>{{item.lastName}}</td>
                                         <td>{{item.tel}}</td>
-                                        <td><button type="button" class="btn btn-block bg-teal" (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="!DataDelivery || !DataDelivery.data || DataDelivery.data.length === 0">
@@ -84,15 +86,17 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>ชื่อ</label>
-                                <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
-                                    [(ngModel)]="ngDelivery.firstName">
+                                <input type="text" class="form-control" maxlength="60"  placeholder="ชื่อ..." name="name"
+                                    [(ngModel)]="ngDelivery.firstName"
+                                    [ngClass]="{'is-invalid': isCheck&&!ngDelivery.firstName}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>นาม-สกุล</label>
-                                <input type="text" class="form-control" placeholder="นาม-สกุล..." name="lastName"
-                                    [(ngModel)]="ngDelivery.lastName">
+                                <input type="text" class="form-control" maxlength="60"  placeholder="นาม-สกุล..." name="lastName"
+                                    [(ngModel)]="ngDelivery.lastName"
+                                    [ngClass]="{'is-invalid': isCheck&&!ngDelivery.lastName}">
                             </div>
                         </div>
                     </div>
@@ -100,15 +104,17 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" placeholder="Username" name="username"
-                                    [(ngModel)]="ngDelivery.userName">
+                                <input type="text" class="form-control" maxlength="50"  placeholder="Username" name="username"
+                                    [(ngModel)]="ngDelivery.userName"
+                                    [ngClass]="{'is-invalid': isCheck&&!ngDelivery.userName}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" name="password"
-                                    [(ngModel)]="ngDelivery.password">
+                                <input type="password" class="form-control" maxlength="50" placeholder="Password" name="password"
+                                    [(ngModel)]="ngDelivery.password"
+                                    [ngClass]="{'is-invalid': isCheck&&!ngDelivery.password}">
                             </div>
                         </div>
                     </div>
@@ -116,8 +122,9 @@
                         <div class="col-5">
                             <div class="form-group">
                                 <label>เบอร์โทร</label>
-                                <input type="tel" class="form-control" maxlength="10" placeholder="เบอร์โทร..." name="tel"
-                                    [(ngModel)]="ngDelivery.tel">
+                                <input type="tel" class="form-control" maxlength="10" placeholder="เบอร์โทร..."
+                                    name="tel" [(ngModel)]="ngDelivery.tel"
+                                    [ngClass]="{'is-invalid': isCheck&&!ngDelivery.tel}">
                             </div>
                         </div>
                     </div>

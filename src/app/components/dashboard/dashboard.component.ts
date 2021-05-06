@@ -5,6 +5,7 @@ import { ResLogin2 } from 'src/app/service-interface/interface-login';
 import { ResKeyToken } from 'src/app/service-interface/token';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
+import { ReqLogoutUser } from 'src/app/service-interface/interface-user';
 
 declare interface RouteInfo {
   path: string;
@@ -30,15 +31,27 @@ export class DashboardComponent implements OnInit {
     private serviceLogin: ServiceLoginService,
     public router: Router,
     private broadcaster: NgBroadcasterService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.broadcaster.emitEvent('token-login', '');
   }
 
   logout() {
-    this.router.navigateByUrl('login');
-    this.serviceLogin.clearLogin();
+    const body: ReqLogoutUser = {
+      refreshToken: this.serviceLogin.Token().refreshToken
+    };
+    console.log(`this is refreshtoken ${body.refreshToken}`);
+    this.callApi.logoutUser(body).subscribe(
+      (res) => {
+
+      },
+      (err) => {
+        this.router.navigateByUrl('login');
+        this.serviceLogin.clearLogin();
+      }
+    );
+
   }
 
 }

@@ -120,11 +120,12 @@ export class ComponentReportComponent implements OnInit {
       checkDate: this.model2,
       ResponsibleName: this.ngPang.ResponsibleName
     };
-    console.log('this is ===---==>', body);
+    if (!this.ngPang.shopName || !this.ngPang.ResponsibleName || !this.model2) {
+      return;
+    }
     setTimeout(() => {
       this.callApi.searchReport(body).subscribe(
         (res) => {
-          console.log('this is res ---==>', res);
           this.DataReport = res;
         }
       );

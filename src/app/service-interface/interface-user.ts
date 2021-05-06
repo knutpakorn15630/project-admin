@@ -73,7 +73,7 @@ export interface ResUpdateUser {
 
 
 export interface ReqLogoutUser {
-    token: string;
+    refreshToken: string;
 }
 
 

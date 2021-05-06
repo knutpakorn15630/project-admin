@@ -29,6 +29,8 @@ export class ComponentDeliveryComponent implements OnInit {
     total: 100
   };
 
+  isCheck = false;
+
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -65,6 +67,7 @@ export class ComponentDeliveryComponent implements OnInit {
         showConfirmButton: false,
         timer: 2500
       });
+      this.isCheck = true;
       return;
     }
     this.callApi.CreateDelivery(body).subscribe(
