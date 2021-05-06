@@ -10,10 +10,11 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <input class="form-control" placeholder="dd/mm/yyyy" name="d2" #c2="ngModel"
-                                    [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+                                    [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
                                 <div class="input-group-append">
-                                    <button class="btn bg-teal calendar" (click)="d2.toggle()" type="button" ><i
-                                            class="fas fa-calendar-alt"></i></button>
+                                    <button class="btn btn-navbar bg-teal" type="submit"  (click)="searchReport()">
+                                    <i class="fas fa-search"></i>
+                                </button>
                                 </div>
                             </div>
                         </div>

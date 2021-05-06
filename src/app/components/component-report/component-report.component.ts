@@ -120,7 +120,7 @@ export class ComponentReportComponent implements OnInit {
       checkDate: this.model2,
       ResponsibleName: this.ngPang.ResponsibleName
     };
-    if (!this.ngPang.shopName || !this.ngPang.ResponsibleName || !this.model2) {
+    if (!this.ngPang.shopName && !this.ngPang.ResponsibleName && !this.model2) {
       return;
     }
     setTimeout(() => {
