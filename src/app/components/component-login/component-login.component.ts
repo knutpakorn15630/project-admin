@@ -1,10 +1,8 @@
+import { GlobalService } from './../../services/global.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgBroadcasterService } from 'ngx-broadcaster';
-import {
-  ReqLogins,
-  ResLogins,
-} from 'src/app/service-interface/interface-login';
+import { ReqLogins, ResLogins } from 'src/app/service-interface/interface-login';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
 import Swal from 'sweetalert2';
@@ -43,10 +41,15 @@ export class ComponentLoginComponent implements OnInit {
     private callApi: ApiserviceService,
     private router: Router,
     private serviceLogin: ServiceLoginService,
-    private broadcaster: NgBroadcasterService
+    private broadcaster: NgBroadcasterService,
+    private globalService: GlobalService,
+    private serviceLoginService: ServiceLoginService,
   ) {}
 
   ngOnInit(): void {
+    this.serviceLoginService.clearLogin();
+    this.broadcaster.emitEvent('token-logout', '');
+
     const inputs = document.querySelectorAll('.input');
 
     function addFocus() {
@@ -65,24 +68,20 @@ export class ComponentLoginComponent implements OnInit {
       input.addEventListener('focus', addFocus);
       input.addEventListener('blur', removeFocus);
     });
-    this.broadcaster.listen('test-token').subscribe((res) => {
-      this.testlogout = res.message;
-      console.log(`this test login component ${this.testlogout}`);
-    });
   }
 
-  Logined() {
+  login() {
     const body: ReqLogins = {
       userName: this.LoginCreate.UserName,
       password: this.LoginCreate.password,
     };
     this.callApi.getLogin(body).subscribe(
-      (res) => {
+      async (res) => {
         this.DataLogin = res;
-        setTimeout(() => {
-          this.serviceLogin.setLogin(res);
-          this.broadcaster.emitEvent('test-token', res);
-        }, 500);
+        this.serviceLogin.setLogin(res);
+        await this.globalService.delay(500);
+        this.broadcaster.emitEvent('token-login', res);
+        console.log('login -> redirect');
         this.router.navigateByUrl('/dashboard/user');
       },
       (err) => {
@@ -94,7 +93,7 @@ export class ComponentLoginComponent implements OnInit {
           timer: 2500,
         });
         return;
-      }
+      },
     );
   }
 }

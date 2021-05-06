@@ -9,9 +9,9 @@
                     <div class="form-inline float-right">
                         <div class="input-group" data-widget="sidebar-search">
                             <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                                aria-label="Search">
+                                aria-label="Search"  [(ngModel)]="ngPang.search">
                             <div class="input-group-append">
-                                <button class="btn btn-sidebar bg-teal">
+                                <button class="btn btn-sidebar bg-teal" (click)="searchShop()">
                                     <i class="fas fa-fw fa-search"></i>
                                 </button>
                             </div>
@@ -58,9 +58,9 @@
                                         <td>{{item.latitude}}</td>
                                         <td>{{item.longitude}}</td>
                                         <td><button type="button" class="btn btn-block bg-teal"
-                                                >แก้ไขข้อมูล</button>
+                                                (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
                                         </td>
-                                        <!-- (click)="ShowUpdateShop(item.id)" -->
+
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
                                     </tr>
@@ -159,14 +159,14 @@
                         <div class="form-group">
                             <label>ชื่อร้าน</label>
                             <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
-                                [(ngModel)]="ngCreate.name">
+                                [(ngModel)]="ngUpdate.name">
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
                             <input type="text" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
-                                [(ngModel)]="ngCreate.day">
+                                [(ngModel)]="ngUpdate.day_cycle">
                         </div>
                     </div>
                 </div>
@@ -193,14 +193,14 @@
                         <div class="form-group">
                             <label>ละติจูด</label>
                             <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
-                                [(ngModel)]="ngCreate.la">
+                                [(ngModel)]="ngUpdate.latitude">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>ลองจิจูด</label>
                             <input type="text" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
-                                [(ngModel)]="ngCreate.long">
+                                [(ngModel)]="ngUpdate.longitude">
                         </div>
                     </div>
                 </div>

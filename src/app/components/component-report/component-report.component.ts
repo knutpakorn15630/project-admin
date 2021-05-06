@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { ReqCreateReport, ReqReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
+import { ReqCreateReport, ReqReport, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
@@ -14,16 +14,17 @@ export class CustomAdapter extends NgbDateAdapter<string> {
     if (value) {
       const date = value.split(this.DELIMITER);
       return {
-        day : parseInt(date[0], 10),
-        month : parseInt(date[1], 10),
-        year : parseInt(date[2], 10)
+        year: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        day: parseInt(date[2], 10),
+
       };
     }
     return null;
   }
 
   toModel(date: NgbDateStruct | null): string | null {
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 }
 
@@ -36,9 +37,9 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
     if (value) {
       const date = value.split(this.DELIMITER);
       return {
-        day : parseInt(date[0], 10),
-        month : parseInt(date[1], 10),
-        year : parseInt(date[2], 10)
+        year: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        day: parseInt(date[2], 10)
       };
     }
     return null;
@@ -55,12 +56,11 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   templateUrl: './component-report.component.html',
   styleUrls: ['./component-report.component.scss'],
   providers: [
-    {provide: NgbDateAdapter, useClass: CustomAdapter},
-    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
   ]
 })
 export class ComponentReportComponent implements OnInit {
-  model1: string;
   model2: string;
 
   DataReport: ResReport = null;
@@ -84,7 +84,10 @@ export class ComponentReportComponent implements OnInit {
   ngPang = {
     perPage: 10,
     Pang: 1,
-    total: 100
+    total: 100,
+    shopName: '',
+    checkDate: '',
+    ResponsibleName: ''
   };
 
   Toast = Swal.mixin({
@@ -103,11 +106,30 @@ export class ComponentReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.showReport();
-    this.createResReport();
   }
 
   get today() {
     return this.dateAdapter.toModel(this.ngbCalendar.getToday());
+  }
+
+  searchReport() {
+    const body: ReqSearchReport = {
+      perPage: this.ngPang.perPage,
+      page: this.ngPang.Pang,
+      shopName: this.ngPang.shopName,
+      checkDate: this.model2,
+      ResponsibleName: this.ngPang.ResponsibleName
+    };
+    console.log('this is ===---==>', body);
+    setTimeout(() => {
+      this.callApi.searchReport(body).subscribe(
+        (res) => {
+          console.log('this is res ---==>', res);
+          this.DataReport = res;
+        }
+      );
+    }, 500);
+
   }
 
   showReport() {
@@ -118,6 +140,7 @@ export class ComponentReportComponent implements OnInit {
     this.callApi.showReport(body).subscribe(
       (res) => {
         this.DataReport = res;
+        console.log(`this. is ResReport ${this.DataReport}`);
         this.setPageTotal(this.DataReport.totalPages);
       }
     );

@@ -9,18 +9,23 @@ export interface ResReport {
     itemsPerPage: number;
     totalPages: number;
     currentPage: number;
-    data: Daum[];
+    data: DataReport[];
 }
 
-export interface Daum {
+export interface DataReport {
     id: number;
-    title: string;
-    material: string;
+    checkDate: string;
+    shopName: string;
     ResponsibleName: string;
-    createdAt: string;
-    updatedAt: string;
-    chauffeurId: any;
-    shopId: any;
+    status: string;
+    elite: string;
+    startDate: any;
+    endDate: any;
+    createdAt: any;
+    updatedAt: any;
+    chauffeurId: number;
+    shopId: number;
+    statusId: number;
 }
 
 
@@ -78,4 +83,41 @@ export interface ResGetDataChauffeur {
     tel: string;
     createdAt: string;
     updatedAt: string;
+}
+
+
+
+// ------------------------------------------------Search----------------
+
+
+export interface ReqSearchReport {
+    perPage: number;
+    page: number;
+    shopName: string;
+    checkDate: string;
+    ResponsibleName: string;
+}
+
+export interface ResSearchReport  {
+    totalItems: number;
+    itemsPerPage: number;
+    totalPages: number;
+    currentPage: number;
+    data: DataSearchReport [];
+}
+
+export interface DataSearchReport {
+    id: number;
+    checkDate: string;
+    shopName: string;
+    ResponsibleName: string;
+    status: string;
+    elite: string;
+    startDate: any;
+    endDate: any;
+    createdAt: any;
+    updatedAt: any;
+    chauffeurId: number;
+    shopId: number;
+    statusId: number;
 }

@@ -76,23 +76,74 @@ export interface DesChauffeur {
 // updateShop-------------------------------------------------------------------------------------
 
 export interface ReqUpdateShop {
-    id: number;
+    shopId: number;
     name: string;
+    day_cycle: number;
     status: string;
-    la: string;
-    long: string;
+    color: string;
+    latitude: number;
+    longitude: number;
+    statusId: number;
 }
 
 
 export interface ResUpdateShop {
     id: number;
     name: string;
+    day_cycle: number;
     status: string;
-    latitude: string;
-    longitude: string;
-    startDate: string;
-    endDate: string;
+    color: string;
+    latitude: number;
+    longitude: number;
+    startDate: any;
+    endDate: any;
     createdAt: any;
     updatedAt: string;
+    statusId: number;
+}
+
+
+export interface ResStatus {
+    status: Status[];
+}
+
+export interface Status {
+    id: number;
+    typeStatus: number;
+    statusName: string;
+    statusColor: string;
+    createdAt: any;
+    updatedAt: any;
+}
+
+// -------------------------------------------Search--------------------------
+
+export interface ReqSearchShop {
+    perPage: number;
+    page: number;
+    name: string;
+}
+
+export interface ResSearchShop {
+    totalItems: number;
+    itemsPerPage: number;
+    totalPages: number;
+    currentPage: number;
+    data: DataSearchShop[];
+}
+
+export interface DataSearchShop {
+    id: number;
+    name: string;
+    day_cycle: number;
+    status: string;
+    color: string;
+    latitude: number;
+    longitude: number;
+    startDate: string;
+    endDate: string;
+    createdAt: string;
+    updatedAt: string;
     chauffeurId: any;
+    statusId: number;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReqCreateShop, ReqShowShop, ReqUpdateShop, ResDataChauffeur, ResDataCreateShop, ResShowShop } from 'src/app/service-interface/interface-shop';
+import { ReqCreateShop, ReqSearchShop, ReqShowShop, ReqUpdateShop, ResDataChauffeur, ResDataCreateShop, ResShowShop, ResStatus } from 'src/app/service-interface/interface-shop';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -16,13 +16,15 @@ export class ComponentShopComponent implements OnInit {
   Data: ResDataCreateShop = null;
 
   GetChauffeur: ResDataChauffeur = null;
+  GetTestStatus: ResStatus = null;
 
   isCheck = false;
 
   ngPang = {
     perPage: 10,
     Pang: 1,
-    total: 100
+    total: 100,
+    search: ''
   };
 
   ngCreate = {
@@ -30,6 +32,17 @@ export class ComponentShopComponent implements OnInit {
     day: '',
     la: '',
     long: '',
+  };
+
+  ngUpdate = {
+    shopId: '',
+    name: '',
+    day_cycle: '',
+    status: '',
+    color: '',
+    latitude: '',
+    longitude: '',
+    statusId: ''
   };
 
   Toast = Swal.mixin({
@@ -49,6 +62,7 @@ export class ComponentShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDataShop();
+    this.GetStatus();
     // this.GetDataChauffeur();
   }
 
@@ -56,6 +70,16 @@ export class ComponentShopComponent implements OnInit {
     this.callApi.GetChauffeur().subscribe(
       (res) => {
         this.GetChauffeur = res;
+      }
+    );
+  }
+
+
+  GetStatus() {
+    this.callApi.GetStatus().subscribe(
+      (res) => {
+        this.GetTestStatus = res;
+
       }
     );
   }
@@ -138,40 +162,45 @@ export class ComponentShopComponent implements OnInit {
     }
   }
 
-  // ShowUpdateShop(id: number) {
-  //   const DateShowShop = this.DataShop.data.find((a) => a.id === id);
-  //   if (!DateShowShop) {
-  //     return;
-  //   }
-  //   this.ngCreate = {
-  //     name: DateShowShop.name,
-  //     status: DateShowShop.status,
-  //     la: DateShowShop.latitude,
-  //     long: DateShowShop.longitude,
-  //     chauffeurId: DateShowShop.chauffeurId,
-  //     id: DateShowShop.id.toString()
-  //   };
-  //   this.open();
-  // }
+  ShowUpdateShop(id: number) {
+    const DateShowShop = this.DataShop.data.find((a) => a.id === id);
+    if (!DateShowShop) {
+      return;
+    }
+    this.ngUpdate = {
+      shopId: DateShowShop.id.toString(),
+      name: DateShowShop.name,
+      day_cycle: DateShowShop.day_cycle.toString(),
+      status: DateShowShop.status,
+      color: DateShowShop.color,
+      latitude: DateShowShop.latitude.toString(),
+      longitude: DateShowShop.longitude.toString(),
+      statusId: DateShowShop.statusId
+    };
+    $('#Update').modal('show');
+  }
 
   updateShop() {
-    // const body: ReqUpdateShop = {
-    //   id: Number(this.ngCreate.id),
-    //   name: this.ngCreate.name,
-    //   status: this.ngCreate.status,
-    //   la: this.ngCreate.la,
-    //   long: this.ngCreate.long
-    // };
-    // this.callApi.UpdateShop(body).subscribe(
-    //   (res) => {
-    //     this.Toast.fire({
-    //       icon: 'success',
-    //       title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
-    //     });
-    //     this.loadDataShop();
-    //     this.hideModal2();
-    //   }
-    // );
+    const body: ReqUpdateShop = {
+      shopId: Number(this.ngUpdate.shopId),
+      name: this.ngUpdate.name,
+      day_cycle: Number(this.ngUpdate.day_cycle),
+      status: this.ngUpdate.status,
+      color: this.ngUpdate.color,
+      latitude: Number(this.ngUpdate.latitude),
+      longitude: Number(this.ngUpdate.longitude),
+      statusId: Number(this.ngUpdate.statusId)
+    };
+    this.callApi.UpdateShop(body).subscribe(
+      (res) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
+        });
+        this.loadDataShop();
+        this.hideModal2();
+      }
+    );
   }
 
   deleteDateShop(id: number) {
@@ -185,6 +214,20 @@ export class ComponentShopComponent implements OnInit {
         });
         this.loadDataShop();
         console.log(err);
+      }
+    );
+  }
+
+  searchShop() {
+    const body: ReqSearchShop = {
+      perPage: this.ngPang.perPage,
+      page: this.ngPang.Pang,
+      name: this.ngPang.search
+    };
+
+    this.callApi.searchShop(body).subscribe(
+      (res) => {
+        this.DataShop = res;
       }
     );
   }
