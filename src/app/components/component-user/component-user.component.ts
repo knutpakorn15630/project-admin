@@ -137,7 +137,6 @@ export class ComponentUserComponent implements OnInit {
       firstName: this.ngUpdate.firstName,
       lastName: this.ngUpdate.lastName,
       userName: this.ngUpdate.userName,
-      passwordNew: this.ngUpdate.passwordNew
     };
 
     if (!this.ngUpdate.firstName || !this.ngUpdate.lastName || !this.testPassWord) {
@@ -159,6 +158,15 @@ export class ComponentUserComponent implements OnInit {
           title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
         });
         console.log('this is dada ', res);
+        this.ngUpdate = {
+          id: '',
+          firstName: '',
+          lastName: '',
+          userName: '',
+          password: '',
+          passwordNew: ''
+        };
+        this.testPassWord = '';
         this.loadDataUser();
         this.hideModal2();
       },
