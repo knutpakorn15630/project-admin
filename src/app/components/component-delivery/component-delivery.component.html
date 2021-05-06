@@ -24,8 +24,7 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped"
-                                *ngIf="DataDelivery && DataDelivery.data && DataDelivery.data.length > 0">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -35,8 +34,7 @@
                                         <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="DataDelivery || DataDelivery.data || DataDelivery.data.length > 0">
-                                    <tr></tr>
+                                <tbody *ngIf="DataDelivery.itemsPerPage > 0 ">
                                     <tr *ngFor="let item of DataDelivery.data; let i = index">
                                         <td>{{i + 1}}</td>
                                         <td>{{item.firstName}}</td>
@@ -46,7 +44,7 @@
                                                 (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="!DataDelivery || !DataDelivery.data || DataDelivery.data.length === 0">
+                                <tbody *ngIf="DataDelivery.itemsPerPage === 0 ">
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
@@ -55,8 +53,8 @@
                         </div>
                         <!-- /.card-body -->
                         <!-- .card-footer -->
-                        <div class="card-footer clearfix">
-                            <span class="pagination pagination-sm m-0 float-right">
+                        <div class="card-footer clearfix" >
+                            <span class="pagination pagination-sm m-0 float-right" *ngIf="DataDelivery.itemsPerPage > 0">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
                                     (click)="pageTest()">
@@ -86,7 +84,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>ชื่อ</label>
-                                <input type="text" class="form-control" maxlength="60"  placeholder="ชื่อ..." name="name"
+                                <input type="text" class="form-control" maxlength="60" placeholder="ชื่อ..." name="name"
                                     [(ngModel)]="ngDelivery.firstName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.firstName}">
                             </div>
@@ -94,8 +92,8 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>นาม-สกุล</label>
-                                <input type="text" class="form-control" maxlength="60"  placeholder="นาม-สกุล..." name="lastName"
-                                    [(ngModel)]="ngDelivery.lastName"
+                                <input type="text" class="form-control" maxlength="60" placeholder="นาม-สกุล..."
+                                    name="lastName" [(ngModel)]="ngDelivery.lastName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.lastName}">
                             </div>
                         </div>
@@ -104,16 +102,16 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" maxlength="50"  placeholder="Username" name="username"
-                                    [(ngModel)]="ngDelivery.userName"
+                                <input type="text" class="form-control" maxlength="50" placeholder="Username"
+                                    name="username" [(ngModel)]="ngDelivery.userName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.userName}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" maxlength="50" placeholder="Password" name="password"
-                                    [(ngModel)]="ngDelivery.password"
+                                <input type="password" class="form-control" maxlength="50" placeholder="Password"
+                                    name="password" [(ngModel)]="ngDelivery.password"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.password}">
                             </div>
                         </div>
@@ -136,3 +134,4 @@
             </div>
         </div>
     </div>
+</div>

@@ -77,7 +77,6 @@ export class ComponentUserComponent implements OnInit {
     this.callApi.showUser().subscribe(
       (res) => {
         this.DataUser = res;
-        console.log('DataUser', this.DataUser);
       }
     );
   }
@@ -94,7 +93,7 @@ export class ComponentUserComponent implements OnInit {
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบ!',
         showConfirmButton: false,
-        timer: 1000
+        timer: 1500
       });
       this.isCheck = true;
       return;
@@ -108,6 +107,15 @@ export class ComponentUserComponent implements OnInit {
           });
           this.loadDataUser();
           this.hideModal();
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Username นี้ถูกใช้งานไปแล้ว กรุณณาตั้ง username!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          console.log(err);
         }
       );
     }

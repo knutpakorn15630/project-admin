@@ -6,6 +6,7 @@ import { ReqLogins, ResLogins } from 'src/app/service-interface/interface-login'
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { ServiceLoginService } from 'src/app/services/service-login.service';
 import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
   selector: 'app-component-login',
@@ -44,9 +45,10 @@ export class ComponentLoginComponent implements OnInit {
     private broadcaster: NgBroadcasterService,
     private globalService: GlobalService,
     private serviceLoginService: ServiceLoginService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+
     this.serviceLoginService.clearLogin();
     this.broadcaster.emitEvent('token-logout', '');
 

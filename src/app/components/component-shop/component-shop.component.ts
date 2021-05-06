@@ -123,6 +123,7 @@ export class ComponentShopComponent implements OnInit {
     this.callApi.showDataShop(body).subscribe(
       (res) => {
         this.DataShop = res;
+        console.log(`this is datashop ${this.DataShop.data}`);
         this.setPageTotal(this.DataShop.totalPages);
       }
     );

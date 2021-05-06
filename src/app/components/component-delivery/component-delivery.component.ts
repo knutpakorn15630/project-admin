@@ -65,7 +65,7 @@ export class ComponentDeliveryComponent implements OnInit {
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบ!',
         showConfirmButton: false,
-        timer: 2500
+        timer: 1500
       });
       this.isCheck = true;
       return;
@@ -79,6 +79,15 @@ export class ComponentDeliveryComponent implements OnInit {
         this.Delivery = res;
         this.loadDelivery();
         this.hideModal();
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Username นี้ถูกใช้งานไปแล้ว กรุณณาตั้ง username!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        console.log(err);
       }
     );
   }

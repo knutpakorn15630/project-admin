@@ -37,8 +37,7 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped"
-                                *ngIf="DataShop && DataShop.data && DataShop.data.length > 0">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -50,7 +49,7 @@
                                         <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="DataShop || DataShop.data || DataShop.data.length > 0">
+                                <tbody *ngIf="DataShop.totalItems > 0">
                                     <tr *ngFor="let item of DataShop.data; let i = index">
                                         <td>{{i +1}}</td>
                                         <td>{{item.name}}</td>
@@ -65,15 +64,16 @@
                                                 (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="!DataShop || !DataShop.data || DataShop.data.length < 0">
+                                <tbody *ngIf="DataShop.totalItems === 0">
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
                                 </tbody>
+                                
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
+                        <div class="card-footer clearfix" *ngIf="DataShop.totalItems > 0">
                             <span class="pagination pagination-sm m-0 float-right">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"

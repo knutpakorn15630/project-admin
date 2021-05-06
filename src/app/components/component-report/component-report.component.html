@@ -1,4 +1,4 @@
-<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;" *ngIf="DataReport">
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;" >
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -49,8 +49,7 @@
                     <div class="card card-outline card-teal">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
-                            <table class="table table-striped"
-                                *ngIf="DataReport && DataReport.data && DataReport.data.length > 0">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -62,7 +61,7 @@
                                         <!-- <th style="width: 150px"></th> -->
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="DataReport || DataReport.data || DataReport.data.length > 0">
+                                <tbody *ngIf="DataReport.totalItems">
                                     <tr></tr>
                                     <tr *ngFor="let report of DataReport.data; let i = index">
                                         <td>{{i + 1}}</td>
@@ -75,7 +74,7 @@
                                             (click)="deleteReport(report.id)">ลบข้อมูล</button></td> -->
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="!DataReport || !DataReport.data || DataReport.data.length === 0">
+                                <tbody *ngIf="DataReport.totalItems === 0">
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
@@ -85,7 +84,7 @@
                         <!-- /.card-body -->
                         <!-- .card-footer -->
                         <div class="card-footer clearfix"
-                            *ngIf="DataReport || DataReport.data || DataReport.data.length > 0">
+                            *ngIf="DataReport.totalItems > 0">
                             <span class="pagination pagination-sm m-0 float-right">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
