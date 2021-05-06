@@ -55,7 +55,6 @@ export interface ReqUpdateUser {
     firstName: string;
     lastName: string;
     userName: string;
-    passwordNew: string;
 }
 
 export interface ResUpdateUser {
