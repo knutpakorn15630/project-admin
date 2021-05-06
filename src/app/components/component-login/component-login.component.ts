@@ -79,6 +79,28 @@ export class ComponentLoginComponent implements OnInit {
     };
     this.callApi.getLogin(body).subscribe(
       async (res) => {
+        let timerInterval;
+        Swal.fire({
+          title: 'กำลังเข้าสู้ระบบ!',
+          html: ' <b></b>',
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent();
+              if (content) {
+                const b = content.querySelector('b');
+                if (b) {
+                  b.textContent = Swal.getTimerLeft().toString();
+                }
+              }
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        });
         this.DataLogin = res;
         this.serviceLogin.setLogin(res);
         await this.globalService.delay(500);
