@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ReqCreateDelivery, ReqDelivery, ResCreateDelivery, ResDataDelivery } from 'src/app/service-interface/interface-delivery';
+// tslint:disable-next-line:max-line-length
+import { ReqCreateDelivery, ReqDelivery, ReqUpdate, ResCreateDelivery, ResDataDelivery } from 'src/app/service-interface/interface-delivery';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -27,6 +28,15 @@ export class ComponentDeliveryComponent implements OnInit {
     perPage: 10,
     Pang: 1,
     total: 100
+  };
+
+  ngUpdate = {
+    id: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
+    tel: '',
   };
 
   isCheck = false;
@@ -89,6 +99,43 @@ export class ComponentDeliveryComponent implements OnInit {
           timer: 2000
         });
         console.log(err);
+      }
+    );
+  }
+
+  ShowUpdateShop(id: number) {
+    const DateShowDelivery = this.DataDelivery.data.find((a) => a.id === id);
+    if (!DateShowDelivery) {
+      return;
+    }
+    this.ngUpdate = {
+      id: DateShowDelivery.id.toString(),
+      password: DateShowDelivery.password,
+      firstName: DateShowDelivery.firstName,
+      lastName: DateShowDelivery.lastName,
+      userName: DateShowDelivery.userName,
+      tel: DateShowDelivery.tel
+    };
+    $('#UpdateDeliVery').modal('show');
+  }
+
+  updateShop() {
+    const body: ReqUpdate = {
+      id: this.ngUpdate.id,
+      password: this.ngUpdate.password,
+      firstName: this.ngUpdate.firstName,
+      lastName: this.ngUpdate.lastName,
+      userName: this.ngUpdate.userName,
+      tel: this.ngUpdate.tel
+    };
+    this.callApi.UpdateDelivery(body).subscribe(
+      (res) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
+        });
+        this.loadDelivery();
+        this.hideModalUpdate();
       }
     );
   }
@@ -156,6 +203,10 @@ export class ComponentDeliveryComponent implements OnInit {
     $('#contentDelivery').modal('hide');
     this.EmptyData();
     this.isCheck = false;
+  }
+
+  hideModalUpdate() {
+    $('#UpdateDeliVery').modal('hide');
   }
 
 }

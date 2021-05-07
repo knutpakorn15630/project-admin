@@ -45,3 +45,27 @@ export interface ResCreateDelivery {
     createdAt: string;
 }
 
+
+// -------------------------update-----------------------------
+
+export interface ReqUpdate {
+    id: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    tel: string;
+}
+
+export interface ResUpdate {
+    id: number;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    password: string;
+    tel: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+

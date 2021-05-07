@@ -32,6 +32,7 @@
                                         <th>นามสกุล</th>
                                         <th>เบอร์โทร</th>
                                         <th style="width: 150px"></th>
+                                        <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataDelivery.itemsPerPage > 0 ">
@@ -40,6 +41,9 @@
                                         <td>{{item.firstName}}</td>
                                         <td>{{item.lastName}}</td>
                                         <td>{{item.tel}}</td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
+                                        </td>
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="deleteUser(item.id)">ลบข้อมูล</button></td>
                                     </tr>
@@ -53,8 +57,9 @@
                         </div>
                         <!-- /.card-body -->
                         <!-- .card-footer -->
-                        <div class="card-footer clearfix" >
-                            <span class="pagination pagination-sm m-0 float-right" *ngIf="DataDelivery.itemsPerPage > 0">
+                        <div class="card-footer clearfix">
+                            <span class="pagination pagination-sm m-0 float-right"
+                                *ngIf="DataDelivery.itemsPerPage > 0">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"
                                     (click)="pageTest()">
@@ -84,7 +89,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>ชื่อ</label>
-                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                                <span *ngIf="isCheck === true" style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder="ชื่อ..." name="name"
                                     [(ngModel)]="ngDelivery.firstName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.firstName}">
@@ -93,7 +98,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>นาม-สกุล</label>
-                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                                <span *ngIf="isCheck === true" style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder="นาม-สกุล..."
                                     name="lastName" [(ngModel)]="ngDelivery.lastName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.lastName}">
@@ -104,7 +109,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Username</label>
-                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                                <span *ngIf="isCheck === true" style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="50" placeholder="Username"
                                     name="username" [(ngModel)]="ngDelivery.userName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.userName}">
@@ -113,7 +118,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Password</label>
-                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                                <span *ngIf="isCheck === true" style="color: red;">*</span>
                                 <input type="password" class="form-control" maxlength="50" placeholder="Password"
                                     name="password" [(ngModel)]="ngDelivery.password"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.password}">
@@ -124,7 +129,7 @@
                         <div class="col-5">
                             <div class="form-group">
                                 <label>เบอร์โทร</label>
-                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                                <span *ngIf="isCheck === true" style="color: red;">*</span>
                                 <input type="tel" class="form-control" maxlength="10" placeholder="เบอร์โทร..."
                                     name="tel" [(ngModel)]="ngDelivery.tel"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.tel}">
@@ -135,6 +140,53 @@
                 <!-- {{ngDelivery|json}} -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark" (click)="createDeliver()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="UpdateDeliVery">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลพนักงาน</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <input type="text" class="form-control" maxlength="60" placeholder="ชื่อ..." name="name"
+                                    [(ngModel)]="ngUpdate.firstName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นาม-สกุล</label>
+                                <input type="text" class="form-control" maxlength="60" placeholder="นาม-สกุล..."
+                                    name="lastName" [(ngModel)]="ngUpdate.lastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>เบอร์โทร</label>
+                                <input type="tel" class="form-control" maxlength="10" placeholder="เบอร์โทร..."
+                                    name="tel" [(ngModel)]="ngUpdate.tel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="updateShop()">Save</button>
                 </div>
             </div>
         </div>

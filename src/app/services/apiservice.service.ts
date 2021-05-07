@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ReqCreateDelivery, ReqDelivery, ResCreateDelivery, ResDataDelivery } from '../service-interface/interface-delivery';
+import { ReqCreateDelivery, ReqDelivery, ReqUpdate, ResCreateDelivery, ResDataDelivery, ResUpdate } from '../service-interface/interface-delivery';
 import { ReqLogins, ResLogins } from '../service-interface/interface-login';
 import { ReqCreateReport, ReqReport, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetShop, ResReport, ResSearchReport } from '../service-interface/interface-report';
 import {
@@ -104,6 +104,10 @@ export class ApiserviceService {
 
   public CreateDelivery(body: ReqCreateDelivery): Observable<ResCreateDelivery> {
     return this.httpApiClient.post<ResCreateDelivery>(`${this.apiUrl}/api/chauffeur/createChauffeur`, body);
+  }
+
+  public UpdateDelivery(body: ReqUpdate): Observable<ResUpdate> {
+    return this.httpApiClient.post<ResUpdate>(`${this.apiUrl}/api/chauffeur/update`, body);
   }
 
   public deleteDelivery(id: number): Observable<any> {
