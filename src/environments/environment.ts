@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  httpApi: 'http://localhost:3002'
+  httpApi: 'https://developer.flowmisite.com'
 };
 // http://localhost:3002
 /*
