@@ -53,7 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>วันที่</th>
+                                        <th>วัน เดือน ปี</th>
                                         <th>ชื่อร้าน</th>
                                         <th>ขื่อพนักงาน</th>
                                         <th>สถานะ</th>
@@ -65,7 +65,7 @@
                                     <tr></tr>
                                     <tr *ngFor="let report of DataReport.data; let i = index">
                                         <td>{{i + 1}}</td>
-                                        <td>{{report.checkDate | date}}</td>
+                                        <td>{{report.checkDate | pipeDate: 'medium'}}</td>
                                         <td>{{report.shopName}}</td>
                                         <td>{{report.ResponsibleName}}</td>
                                         <td>{{report.status}}</td>

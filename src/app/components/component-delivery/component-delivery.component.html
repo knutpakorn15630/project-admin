@@ -84,6 +84,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>ชื่อ</label>
+                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder="ชื่อ..." name="name"
                                     [(ngModel)]="ngDelivery.firstName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.firstName}">
@@ -92,6 +93,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>นาม-สกุล</label>
+                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder="นาม-สกุล..."
                                     name="lastName" [(ngModel)]="ngDelivery.lastName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.lastName}">
@@ -102,6 +104,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Username</label>
+                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
                                 <input type="text" class="form-control" maxlength="50" placeholder="Username"
                                     name="username" [(ngModel)]="ngDelivery.userName"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.userName}">
@@ -110,6 +113,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Password</label>
+                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
                                 <input type="password" class="form-control" maxlength="50" placeholder="Password"
                                     name="password" [(ngModel)]="ngDelivery.password"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.password}">
@@ -120,6 +124,7 @@
                         <div class="col-5">
                             <div class="form-group">
                                 <label>เบอร์โทร</label>
+                                <span *ngIf="isCheck === true" style="color: red;" >*</span>
                                 <input type="tel" class="form-control" maxlength="10" placeholder="เบอร์โทร..."
                                     name="tel" [(ngModel)]="ngDelivery.tel"
                                     [ngClass]="{'is-invalid': isCheck&&!ngDelivery.tel}">

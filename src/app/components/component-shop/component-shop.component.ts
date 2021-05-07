@@ -95,6 +95,7 @@ export class ComponentShopComponent implements OnInit {
   hideModal() {
     $('#Create').modal('hide');
     this.clearForm();
+    this.isCheck = false;
   }
 
   hideModal2() {

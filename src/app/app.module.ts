@@ -17,6 +17,8 @@ import { ComponentUserComponent } from './components/component-user/component-us
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GoogleMapNewComponent } from './components/google-map-new/google-map-new.component';
 import { InterceptorInterceptor } from './services/interceptor.interceptor';
+import { PipeDatePipe } from './pipe-date.pipe';
+import { PipetestPipe } from './pipetest.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { InterceptorInterceptor } from './services/interceptor.interceptor';
     ComponentMapComponent,
     ComponentLoginComponent,
     GoogleMapNewComponent,
+    PipeDatePipe,
+    PipetestPipe,
   ],
   imports: [
     BrowserModule,

@@ -104,6 +104,7 @@
                     <div class="col-7">
                         <div class="form-group">
                             <label>ชื่อร้าน</label>
+                            <span *ngIf="isCheck === true" style="color: red;">*</span>
                             <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
                                 [(ngModel)]="ngCreate.name" [ngClass]="{'is-invalid': isCheck&&!ngCreate.name}">
                         </div>
@@ -111,6 +112,7 @@
                     <div class="col-5">
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
+                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
                             <input type="number" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
                                 [(ngModel)]="ngCreate.day" [ngClass]="{'is-invalid': isCheck&&!ngCreate.day}">
                         </div>
@@ -120,6 +122,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>ละติจูด</label>
+                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
                             <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
                                 [(ngModel)]="ngCreate.la" [ngClass]="{'is-invalid': isCheck&&!ngCreate.la}">
                         </div>
@@ -127,6 +130,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>ลองจิจูด</label>
+                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
                             <input type="text" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
                                 [(ngModel)]="ngCreate.long" [ngClass]="{'is-invalid': isCheck&&!ngCreate.long}">
                         </div>

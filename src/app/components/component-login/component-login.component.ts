@@ -82,7 +82,6 @@ export class ComponentLoginComponent implements OnInit {
         let timerInterval;
         Swal.fire({
           title: 'กำลังเข้าสู้ระบบ!',
-          html: ' <b></b>',
           timer: 1000,
           timerProgressBar: true,
           didOpen: () => {

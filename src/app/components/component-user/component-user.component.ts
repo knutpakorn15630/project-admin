@@ -229,6 +229,7 @@ export class ComponentUserComponent implements OnInit {
   hideModal() {
     $('#content').modal('hide');
     this.EmptyData();
+    this.isCheck = false;
   }
 
   hideModal2() {

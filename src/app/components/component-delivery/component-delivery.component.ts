@@ -76,6 +76,7 @@ export class ComponentDeliveryComponent implements OnInit {
           icon: 'success',
           title: 'ลงชื่อเข้าใช้เรียบร้อยแล้ว'
         });
+        this.isCheck = false;
         this.Delivery = res;
         this.loadDelivery();
         this.hideModal();
@@ -154,6 +155,7 @@ export class ComponentDeliveryComponent implements OnInit {
   hideModal() {
     $('#contentDelivery').modal('hide');
     this.EmptyData();
+    this.isCheck = false;
   }
 
 }
