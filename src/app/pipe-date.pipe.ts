@@ -17,7 +17,7 @@ export class PipeDatePipe implements PipeTransform {
     ];
     const inputDate = new Date(date);
     const dataDate = [
-      inputDate.getDay(), inputDate.getDate(), inputDate.getMonth(), inputDate.getFullYear()
+      inputDate.getDay(), inputDate.getDate(), inputDate.getMonth(), inputDate.getFullYear(), inputDate.getTime()
     ];
     const outputDateFull = [
       'วัน ' + ThaiDay[dataDate[0]],

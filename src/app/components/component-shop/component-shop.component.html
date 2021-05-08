@@ -45,6 +45,8 @@
                                         <th>สถานะ</th>
                                         <th>ละติจูด</th>
                                         <th>ลองจิจูด</th>
+                                        <th>วันที่สร้าง</th>
+                                        <th>วันที่อัพเดท</th>
                                         <th style="width: 150px"></th>
                                         <th style="width: 150px"></th>
                                     </tr>
@@ -56,10 +58,11 @@
                                         <td>{{item.status}}</td>
                                         <td>{{item.latitude}}</td>
                                         <td>{{item.longitude}}</td>
+                                        <td>{{item.createdAt | pipeDate: 'medium'}}</td>
+                                        <td>{{item.updatedAt | pipeDate: 'medium'}}</td>
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="ShowUpdateShop(item.id)">แก้ไขข้อมูล</button>
                                         </td>
-
                                         <td><button type="button" class="btn btn-block bg-teal"
                                                 (click)="deleteDateShop(item.id)">ลบข้อมูล</button></td>
                                     </tr>

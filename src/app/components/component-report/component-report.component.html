@@ -1,4 +1,4 @@
-<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;" >
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -12,9 +12,9 @@
                                 <input class="form-control" placeholder="dd/mm/yyyy" name="d2" #c2="ngModel"
                                     [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
                                 <div class="input-group-append">
-                                    <button class="btn btn-navbar bg-teal" type="submit"  (click)="searchReport()">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                                    <button class="btn btn-navbar bg-teal" type="submit" (click)="searchReport()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,8 @@
 
                     <div class="form-inline ">
                         <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                                [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
                             <div class="input-group-append">
                                 <button class="btn btn-sidebar bg-teal" (click)="searchReport()">
                                     <i class="fas  fa-search"></i>
@@ -53,7 +54,8 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>วัน เดือน ปี</th>
+                                        <th style="text-align: center;">วัน เดือน ปี</th>
+                                        <th>เวลา</th>
                                         <th>ชื่อร้าน</th>
                                         <th>ขื่อพนักงาน</th>
                                         <th>สถานะ</th>
@@ -62,16 +64,14 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataReport.totalItems">
-                                    <tr></tr>
                                     <tr *ngFor="let report of DataReport.data; let i = index">
                                         <td>{{i + 1}}</td>
-                                        <td>{{report.checkDate | pipeDate: 'medium'}}</td>
+                                        <td style="text-align: center;">{{report.checkDate | pipeDate: 'medium' }}</td>
+                                        <td>{{report.checkDate | date: 'h:mm a'}}</td>
                                         <td>{{report.shopName}}</td>
                                         <td>{{report.ResponsibleName}}</td>
                                         <td>{{report.status}}</td>
-                                        <td>{{report.elite}}</td>
-                                        <!-- <td><button type="button" class="btn btn-block bg-teal"
-                                            (click)="deleteReport(report.id)">ลบข้อมูล</button></td> -->
+                                        <td>{{report.elite | currency:' '}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="DataReport.totalItems === 0">
@@ -83,8 +83,7 @@
                         </div>
                         <!-- /.card-body -->
                         <!-- .card-footer -->
-                        <div class="card-footer clearfix"
-                            *ngIf="DataReport.totalItems > 0">
+                        <div class="card-footer clearfix" *ngIf="DataReport.totalItems > 0">
                             <span class="pagination pagination-sm m-0 float-right">
                                 <ngb-pagination class="d-flex justify-content-end" [maxSize]="5" [rotate]="true"
                                     [boundaryLinks]="true" [collectionSize]="ngPang.total" [(page)]="ngPang.Pang"

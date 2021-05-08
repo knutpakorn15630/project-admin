@@ -3,12 +3,16 @@ import { ReqCreateReport, ReqReport, ReqSearchReport, ResCreateReport, ResGetCha
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
 declare var $: any;
 
 @Injectable()
 export class CustomAdapter extends NgbDateAdapter<string> {
 
   readonly DELIMITER = '-';
+
+  NumberOne: number;
+
 
   fromModel(value: string | null): NgbDateStruct | null {
     if (value) {
@@ -71,8 +75,10 @@ export class ComponentReportComponent implements OnInit {
 
   GetDelivery: ResGetChauffeur = null;
 
-  testNum = 'qwertyuiop';
+  testNumber: number;
 
+  testNum = 'qwertyuiop';
+  eliteNumber = [];
   ngReport = {
     title: '',
     material: '',
@@ -81,10 +87,13 @@ export class ComponentReportComponent implements OnInit {
     shopId: ''
   };
 
+
+
   ngPang = {
     perPage: 10,
     Pang: 1,
     total: 100,
+    testNumber : 1000000,
     shopName: '',
     checkDate: '',
     ResponsibleName: ''
@@ -106,6 +115,7 @@ export class ComponentReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.showReport();
+    console.log(moment().format('LLLL'));
   }
 
   get today() {
@@ -141,7 +151,7 @@ export class ComponentReportComponent implements OnInit {
     this.callApi.showReport(body).subscribe(
       (res) => {
         this.DataReport = res;
-        console.log(`this. is ResReport ${this.DataReport}`);
+        // tslint:disable-next-line:prefer-const
         this.setPageTotal(this.DataReport.totalPages);
       }
     );
