@@ -5,15 +5,27 @@
                 <div class="col-sm-2">
                     <h1>รายงาน</h1>
                 </div>
-                <div class="col-7">
-                    <form class="form-inline float-right">
+                <div class="col-3">
+                    <form class="form-inline float-right" style="margin-right: 0px;">
                         <div class="form-group">
                             <div class="input-group">
-                                <input class="form-control" placeholder="dd/mm/yyyy" name="d2" #c2="ngModel"
+                                <input class="form-control" placeholder="วันที่เริ่มต้น" name="d2" #c2="ngModel"
                                     [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
                                 <div class="input-group-append">
-                                    <button class="btn btn-navbar bg-teal" type="submit" (click)="searchReport()">
-                                        <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>  
+                    </form>
+                </div>
+                <div class="col-4">
+                    <form class="form-inline ">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="วันที่สิ้นสุด" name="d1" #c1="ngModel"
+                                    [(ngModel)]="model3" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sidebar bg-teal" (click)="searchReportDate()">
+                                        ค้นหา
                                     </button>
                                 </div>
                             </div>
@@ -21,16 +33,16 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <!-- <pre>Model: {{ model2 | json }}</pre>
-                    <pre>State: {{ c2.status }}</pre> -->
+                    <!-- <pre>1: {{ model2 | json }}</pre>
+                    <pre>3: {{ model3| json }}</pre> -->
 
                     <div class="form-inline ">
                         <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            <input class="form-control form-control-sidebar" type="search" placeholder="ชื่อร้าน"
                                 [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
                             <div class="input-group-append">
                                 <button class="btn btn-sidebar bg-teal" (click)="searchReport()">
-                                    <i class="fas  fa-search"></i>
+                                    ค้นหา
                                 </button>
                             </div>
                         </div>
@@ -73,7 +85,20 @@
                                         <td>{{report.status}}</td>
                                         <td>{{report.elite | currency:' '}}</td>
                                     </tr>
+                                    
                                 </tbody>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px"></th>
+                                        <th style="text-align: center;"></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>รวมยอดจ่าย : {{totalNumber.sumElite | currency: ' '}}</th>
+                                        <!-- <th style="width: 150px"></th> -->
+                                    </tr>
+                                </thead>
                                 <tbody *ngIf="DataReport.totalItems === 0">
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>

@@ -109,6 +109,7 @@ export class ComponentShopComponent implements OnInit {
         page: this.ngPang.Pang
       };
       console.log('==========================', ngPage);
+      this.loadDataShop();
     }, 5);
   }
 

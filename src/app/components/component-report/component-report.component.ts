@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { ReqCreateReport, ReqReport, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport } from 'src/app/service-interface/interface-report';
+// tslint:disable-next-line:max-line-length
+import { ReqCreateReport, ReqReport, ReqSearchDate, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetDataChauffeur, ResGetShop, ResReport, ResSum } from 'src/app/service-interface/interface-report';
 import { ApiserviceService } from 'src/app/services/apiservice.service';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
@@ -66,6 +67,7 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 })
 export class ComponentReportComponent implements OnInit {
   model2: string;
+  model3: string;
 
   DataReport: ResReport = null;
 
@@ -76,6 +78,8 @@ export class ComponentReportComponent implements OnInit {
   GetDelivery: ResGetChauffeur = null;
 
   testNumber: number;
+
+  totalNumber: ResSum = null;
 
   testNum = 'qwertyuiop';
   eliteNumber = [];
@@ -93,7 +97,7 @@ export class ComponentReportComponent implements OnInit {
     perPage: 10,
     Pang: 1,
     total: 100,
-    testNumber : 1000000,
+    testNumber: 1000000,
     shopName: '',
     checkDate: '',
     ResponsibleName: ''
@@ -116,10 +120,20 @@ export class ComponentReportComponent implements OnInit {
   ngOnInit(): void {
     this.showReport();
     console.log(moment().format('LLLL'));
+    this.sumReport();
   }
 
   get today() {
     return this.dateAdapter.toModel(this.ngbCalendar.getToday());
+  }
+
+  sumReport() {
+    this.callApi.sumReport().subscribe(
+      (res) => {
+        this.totalNumber = res;
+        console.log(`this sum ${this.totalNumber}`);
+      }
+    );
   }
 
   searchReport() {
@@ -130,9 +144,7 @@ export class ComponentReportComponent implements OnInit {
       checkDate: this.model2,
       ResponsibleName: this.ngPang.ResponsibleName
     };
-    if (!this.ngPang.shopName && !this.ngPang.ResponsibleName && !this.model2) {
-      return;
-    }
+
     setTimeout(() => {
       this.callApi.searchReport(body).subscribe(
         (res) => {
@@ -141,6 +153,25 @@ export class ComponentReportComponent implements OnInit {
       );
     }, 500);
 
+  }
+
+  searchReportDate() {
+    const body: ReqSearchDate = {
+      perPage: this.ngPang.perPage,
+      page: this.ngPang.Pang,
+      startDate: this.model2,
+      endDate: this.model3
+    };
+    if (!this.model2 && !this.model3) {
+      return;
+    }
+    setTimeout(() => {
+      this.callApi.searchReportDate(body).subscribe(
+        (res) => {
+          this.DataReport = res;
+        }
+      );
+    }, 500);
   }
 
   showReport() {
@@ -240,6 +271,7 @@ export class ComponentReportComponent implements OnInit {
         page: this.ngPang.Pang
       };
       console.log('==========================', ngPage);
+      this.showReport();
     }, 5);
   }
 

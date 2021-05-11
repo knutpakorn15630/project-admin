@@ -98,12 +98,12 @@ export interface ReqSearchReport {
     ResponsibleName: string;
 }
 
-export interface ResSearchReport  {
+export interface ResSearchReport {
     totalItems: number;
     itemsPerPage: number;
     totalPages: number;
     currentPage: number;
-    data: DataSearchReport [];
+    data: DataSearchReport[];
 }
 
 export interface DataSearchReport {
@@ -120,4 +120,49 @@ export interface DataSearchReport {
     chauffeurId: number;
     shopId: number;
     statusId: number;
+}
+
+
+
+
+
+
+
+export interface ReqSearchDate {
+    perPage: number;
+    page: number;
+    startDate: string;
+    endDate: string;
+}
+
+export interface ResSearchDate {
+    totalItems: number;
+    itemsPerPage: number;
+    totalPages: number;
+    currentPage: number;
+    data: DataResSearchDate[];
+}
+
+export interface DataResSearchDate {
+    id: number;
+    checkDate: string;
+    shopName: string;
+    ResponsibleName: string;
+    status: string;
+    elite: string;
+    startDate: any;
+    endDate: any;
+    createdAt: any;
+    updatedAt: any;
+    chauffeurId: number;
+    shopId: number;
+    statusId: number;
+}
+
+
+
+// sum----------------------------------------------------------------
+
+export interface ResSum {
+    sumElite: string;
 }
