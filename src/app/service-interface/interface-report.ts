@@ -18,7 +18,7 @@ export interface DataReport {
     shopName: string;
     ResponsibleName: string;
     status: string;
-    elite: string;
+    elite: number;
     startDate: any;
     endDate: any;
     createdAt: any;
@@ -112,7 +112,7 @@ export interface DataSearchReport {
     shopName: string;
     ResponsibleName: string;
     status: string;
-    elite: string;
+    elite: number;
     startDate: any;
     endDate: any;
     createdAt: any;
@@ -149,7 +149,7 @@ export interface DataResSearchDate {
     shopName: string;
     ResponsibleName: string;
     status: string;
-    elite: string;
+    elite: number;
     startDate: any;
     endDate: any;
     createdAt: any;
@@ -164,5 +164,5 @@ export interface DataResSearchDate {
 // sum----------------------------------------------------------------
 
 export interface ResSum {
-    sumElite: string;
+    sumElite: number;
 }
