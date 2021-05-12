@@ -81,6 +81,8 @@ export class ComponentReportComponent implements OnInit {
 
   totalNumber: ResSum = null;
 
+  checkClick = false;
+
   testNum = 'qwertyuiop';
   eliteNumber = [];
   ngReport = {
@@ -150,7 +152,9 @@ export class ComponentReportComponent implements OnInit {
       this.callApi.searchReport(body).subscribe(
         (res) => {
           this.DataReport = res._return;
+          console.log(`this. is DataReport ${this.DataReport}`);
           this.totalNumber.sumElite = res.elite;
+          this.checkClick = true;
           this.setPageTotal(this.DataReport.totalPages);
         }
       );
@@ -281,13 +285,35 @@ export class ComponentReportComponent implements OnInit {
   }
 
   pageTest() {
-    setTimeout(() => {
-      const ngPage: SwitchPage = {
-        page: this.ngPang.Pang
-      };
-      console.log('==========================', ngPage);
-      this.showReport();
-    }, 5);
+    if (this.checkClick === true) {
+      setTimeout(() => {
+        const ngPage: SwitchPage = {
+          perPage: this.ngPang.perPage,
+          page: this.ngPang.Pang,
+          shopName: this.ngPang.shopName,
+          startDate: this.model2,
+          endDate: this.model3,
+          ResponsibleName: this.ngPang.ResponsibleName
+        };
+        console.log('==========================', ngPage);
+        // this.showReport();
+        this.searchReport();
+      }, 500);
+    }
+    if (this.checkClick === false) {
+      setTimeout(() => {
+        const ngPage: SwitchPage = {
+          perPage: null,
+          page: this.ngPang.Pang,
+          shopName: '',
+          startDate: '',
+          endDate: '',
+          ResponsibleName: ''
+        };
+        console.log('==========================', ngPage);
+        this.showReport();
+      }, 5);
+    }
   }
 
 
@@ -314,6 +340,10 @@ export class ComponentReportComponent implements OnInit {
 
 
 interface SwitchPage {
+  perPage: number;
   page: number;
+  shopName: string;
+  startDate: string;
+  endDate: string;
+  ResponsibleName: string;
 }
-

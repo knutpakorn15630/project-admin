@@ -9,7 +9,7 @@ export class PipetestPipe implements PipeTransform {
 
   transform(value: any, format?: string): any {
     const testMoment = moment();
-    moment.locale('th');
+    testMoment.locale('th');
     const IsNumber = value;
     const result = new Intl.NumberFormat(IsNumber);
     return result;
