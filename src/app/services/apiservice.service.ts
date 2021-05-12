@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ReqCreateDelivery, ReqDelivery, ReqUpdate, ResCreateDelivery, ResDataDelivery, ResUpdate } from '../service-interface/interface-delivery';
 import { ReqLogins, ResLogins } from '../service-interface/interface-login';
 // tslint:disable-next-line:max-line-length
-import { ReqCreateReport, ReqReport, ReqSearchDate, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetShop, ResReport, ResSearchDate, ResSearchReport, ResSum } from '../service-interface/interface-report';
+import { ReqCreateReport, ReqReport, ReqSearchDate, ReqSearchReport, ResCreateReport, ResGetChauffeur, ResGetShop, ResReport, ResSearchDataReport, ResSearchDate, ResSearchReport, ResSum } from '../service-interface/interface-report';
 import {
   ReqCreateShop,
   ReqSearchShop,
@@ -71,8 +71,8 @@ export class ApiserviceService {
     return this.httpApiClient.get<ResGetShop>(`${this.apiUrl}/api/report/getShop`);
   }
 
-  public searchReport(body: ReqSearchReport): Observable<ResSearchReport> {
-    return this.httpApiClient.post<ResSearchReport>(`${this.apiUrl}/api/user/searchReport`, body);
+  public searchReport(body: ReqSearchReport): Observable<ResSearchDataReport> {
+    return this.httpApiClient.post<ResSearchDataReport>(`${this.apiUrl}/api/user/searchReport`, body);
   }
 
   public searchReportDate(body: ReqSearchDate): Observable<ResSearchDate> {

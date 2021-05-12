@@ -231,6 +231,7 @@ export class ComponentShopComponent implements OnInit {
     this.callApi.searchShop(body).subscribe(
       (res) => {
         this.DataShop = res;
+        this.setPageTotal(this.DataShop.totalPages);
       }
     );
   }

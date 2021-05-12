@@ -94,8 +94,14 @@ export interface ReqSearchReport {
     perPage: number;
     page: number;
     shopName: string;
-    checkDate: string;
+    startDate: string;
+    endDate: string;
     ResponsibleName: string;
+}
+
+export interface ResSearchDataReport {
+    _return: ResSearchReport;
+    elite: number;
 }
 
 export interface ResSearchReport {

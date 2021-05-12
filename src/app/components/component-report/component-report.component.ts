@@ -141,14 +141,17 @@ export class ComponentReportComponent implements OnInit {
       perPage: this.ngPang.perPage,
       page: this.ngPang.Pang,
       shopName: this.ngPang.shopName,
-      checkDate: this.model2,
+      startDate: this.model2,
+      endDate: this.model3,
       ResponsibleName: this.ngPang.ResponsibleName
     };
 
     setTimeout(() => {
       this.callApi.searchReport(body).subscribe(
         (res) => {
-          this.DataReport = res;
+          this.DataReport = res._return;
+          this.totalNumber.sumElite = res.elite;
+          this.setPageTotal(this.DataReport.totalPages);
         }
       );
     }, 500);
@@ -169,6 +172,7 @@ export class ComponentReportComponent implements OnInit {
       this.callApi.searchReportDate(body).subscribe(
         (res) => {
           this.DataReport = res;
+          this.setPageTotal(this.DataReport.totalPages);
         }
       );
     }, 500);
@@ -222,19 +226,30 @@ export class ComponentReportComponent implements OnInit {
 
 
   deleteReport(id: number) {
-    this.callApi.DeleteReport(id).subscribe(
-      (res) => {
-
-      },
-      (err) => {
-        this.Toast.fire({
-          icon: 'success',
-          title: 'ลบสำเร็จเรียบร้อยแล้ว'
-        });
-        this.showReport();
-        console.log(err);
+    Swal.fire({
+      title: 'ยืนยันการลบข้อมูล',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'ลบข้อสำเร็จ!',
+          'ข้อมูลของคุณถูกลบแล้ว',
+          'success'
+        );
+        this.callApi.DeleteReport(id).subscribe(
+          (res) => {
+          },
+          (err) => {
+            this.showReport();
+            console.log(err);
+          }
+        );
       }
-    );
+    });
   }
 
 

@@ -1,34 +1,25 @@
 <div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-2">
+            <div class="row mb-2 p-0">
+                <div class="col-sm-5">
                     <h1>รายงาน</h1>
                 </div>
-                <div class="col-3">
-                    <form class="form-inline float-right" style="margin-right: 0px;">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input class="form-control" placeholder="วันที่เริ่มต้น" name="d2" #c2="ngModel"
-                                    [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
-                                <div class="input-group-append">
-                                </div>
-                            </div>
-                        </div>  
+                <div class="col-2">
+                    <form class="form-inline float-right" style="margin-right: 1px;">
+                        <label>วันที่เริ่มต้น</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="วันที่เริ่มต้น" name="d2" #c2="ngModel"
+                                [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
+                        </div>
                     </form>
                 </div>
-                <div class="col-4">
-                    <form class="form-inline ">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input class="form-control" placeholder="วันที่สิ้นสุด" name="d1" #c1="ngModel"
-                                    [(ngModel)]="model3" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
-                                <div class="input-group-append">
-                                    <button class="btn btn-sidebar bg-teal" (click)="searchReportDate()">
-                                        ค้นหา
-                                    </button>
-                                </div>
-                            </div>
+                <div class="col-2">
+                    <form class="form-inline float-right">
+                        <label>วันที่สิ้นสุด</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="วันที่สิ้นสุด" name="d1" #c1="ngModel"
+                                [(ngModel)]="model3" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
                         </div>
                     </form>
                 </div>
@@ -37,6 +28,7 @@
                     <pre>3: {{ model3| json }}</pre> -->
 
                     <div class="form-inline ">
+                        <label>ชื่อร้าน</label>
                         <div class="input-group" data-widget="sidebar-search">
                             <input class="form-control form-control-sidebar" type="search" placeholder="ชื่อร้าน"
                                 [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
@@ -72,7 +64,7 @@
                                         <th>ขื่อพนักงาน</th>
                                         <th>สถานะ</th>
                                         <th>ยอดจ่าย</th>
-                                        <!-- <th style="width: 150px"></th> -->
+                                        <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataReport.totalItems">
@@ -84,8 +76,9 @@
                                         <td>{{report.ResponsibleName}}</td>
                                         <td>{{report.status}}</td>
                                         <td>{{report.elite | currency:' '}}</td>
+                                        <td><button type="button" class="btn btn-block bg-teal" (click)="deleteReport(report.id)">ลบข้อมูล</button></td>
                                     </tr>
-                                    
+
                                 </tbody>
                                 <thead>
                                     <tr>
@@ -96,7 +89,7 @@
                                         <th></th>
                                         <th></th>
                                         <th>รวมยอดจ่าย : {{totalNumber.sumElite | currency: ' '}}</th>
-                                        <!-- <th style="width: 150px"></th> -->
+                                        
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataReport.totalItems === 0">
