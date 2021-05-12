@@ -1,5 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
+import * as moment from 'moment';
+declare var $: any;
 
 @Pipe({
   name: 'pipeDate'
@@ -35,6 +37,9 @@ export class PipeDatePipe implements PipeTransform {
       longThaiMonth[dataDate[2]],
       dataDate[3] + 543
     ];
+    const outputDataTime = [
+      dataDate[4]
+    ];
     let returnDate: string;
     returnDate = outputDateMedium.join(' ');
     if (format === 'full') {
@@ -45,6 +50,9 @@ export class PipeDatePipe implements PipeTransform {
     }
     if (format === 'short') {
       returnDate = outputDateShort.join(' ');
+    }
+    if (format === 'Time') {
+      returnDate = outputDataTime.join(' ');
     }
     return returnDate;
   }

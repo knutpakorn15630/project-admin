@@ -29,7 +29,7 @@
                     <form action="simple-results.html" style="padding-top: 10px;">
                         <label>ชื่อร้าน</label>
                         <div class="input-group">
-                            <input type="search" class="form-control " placeholder="ชื่อร้าน"  [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
+                            <input type="search" class="form-control " placeholder="ชื่อร้าน" name="name"  [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
                             <div class="input-group-append">
                                 <button type="submit" class="btn  btn-default  bg-teal" (click)="searchReport()">
                                     ค้นหา
@@ -69,7 +69,7 @@
                                     <tr *ngFor="let report of DataReport.data; let i = index">
                                         <td>{{i + 1}}</td>
                                         <td style="text-align: center;">{{report.checkDate | pipeDate: 'medium' }}</td>
-                                        <td>{{report.checkDate | date: 'h:mm a'}}</td>
+                                        <td>{{report.checkDate | date: 'H:MM'}}</td>
                                         <td>{{report.shopName}}</td>
                                         <td>{{report.ResponsibleName}}</td>
                                         <td>{{report.status}}</td>
