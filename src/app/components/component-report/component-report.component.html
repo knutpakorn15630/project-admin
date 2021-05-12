@@ -6,39 +6,37 @@
                     <h1>รายงาน</h1>
                 </div>
                 <div class="col-2">
-                    <form class="form-inline float-right" style="margin-right: 1px;">
+                    <form action="simple-results.html" style="padding-top: 10px;">
                         <label>วันที่เริ่มต้น</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="วันที่เริ่มต้น" name="d2" #c2="ngModel"
-                                [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
+                            <input type="search" class="form-control " placeholder="วันที่เริ่มต้น" name="d2"
+                                #c2="ngModel" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker"
+                                (click)="d2.toggle()">
                         </div>
                     </form>
                 </div>
-                <div class="col-2">
-                    <form class="form-inline float-right">
+                <div class="col-2 ">
+                    <form action="simple-results.html" style="padding-top: 10px;">
                         <label>วันที่สิ้นสุด</label>
                         <div class="input-group">
-                            <input class="form-control" placeholder="วันที่สิ้นสุด" name="d1" #c1="ngModel"
-                                [(ngModel)]="model3" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()">
+                            <input type="search" class="form-control " placeholder="วันที่สิ้นสุด" name="d1"
+                                #c1="ngModel" [(ngModel)]="model3" ngbDatepicker #d1="ngbDatepicker"
+                                (click)="d1.toggle()">
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-3">
-                    <!-- <pre>1: {{ model2 | json }}</pre>
-                    <pre>3: {{ model3| json }}</pre> -->
-
-                    <div class="form-inline ">
+                <div class="col-3">
+                    <form action="simple-results.html" style="padding-top: 10px;">
                         <label>ชื่อร้าน</label>
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="ชื่อร้าน"
-                                [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
+                        <div class="input-group">
+                            <input type="search" class="form-control " placeholder="ชื่อร้าน"  [(ngModel)]="ngPang.shopName" [(ngModel)]="ngPang.ResponsibleName">
                             <div class="input-group-append">
-                                <button class="btn btn-sidebar bg-teal" (click)="searchReport()">
+                                <button type="submit" class="btn  btn-default  bg-teal" (click)="searchReport()">
                                     ค้นหา
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -76,7 +74,8 @@
                                         <td>{{report.ResponsibleName}}</td>
                                         <td>{{report.status}}</td>
                                         <td>{{report.elite | currency:' '}}</td>
-                                        <td><button type="button" class="btn btn-block bg-teal" (click)="deleteReport(report.id)">ลบข้อมูล</button></td>
+                                        <td><button type="button" class="btn btn-block bg-teal"
+                                                (click)="deleteReport(report.id)">ลบข้อมูล</button></td>
                                     </tr>
 
                                 </tbody>
@@ -89,7 +88,7 @@
                                         <th></th>
                                         <th></th>
                                         <th>รวมยอดจ่าย : {{totalNumber.sumElite | currency: ' '}}</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="DataReport.totalItems === 0">

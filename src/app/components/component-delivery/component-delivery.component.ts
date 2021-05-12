@@ -16,6 +16,7 @@ export class ComponentDeliveryComponent implements OnInit {
 
   Delivery: ResCreateDelivery = null;
 
+  CheckRed = true;
   ngDelivery = {
     firstName: '',
     lastName: '',

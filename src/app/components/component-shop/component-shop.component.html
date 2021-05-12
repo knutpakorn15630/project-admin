@@ -7,15 +7,16 @@
                 </div>
                 <div class="col-5">
                     <div class="form-inline float-right">
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                                aria-label="Search"  [(ngModel)]="ngPang.search">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar bg-teal" (click)="searchShop()">
-                                    <i class="fas fa-fw fa-search"></i>
-                                </button>
+                        <form action="simple-results.html">
+                            <div class="input-group">
+                                <input type="search" class="form-control " name="search" placeholder="ชื่อร้าน"  [(ngModel)]="ngPang.search">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn  btn-default  bg-teal" (click)="searchShop()">
+                                        ค้นหา
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -72,7 +73,7 @@
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>
                                 </tbody>
-                                
+
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -104,18 +105,18 @@
             <div class="modal-body">
 
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>ชื่อร้าน</label>
-                            <span *ngIf="isCheck === true" style="color: red;">*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;">*</span>
                             <input type="text" class="form-control" placeholder="ชื่อร้าน..." name="name"
                                 [(ngModel)]="ngCreate.name" [ngClass]="{'is-invalid': isCheck&&!ngCreate.name}">
                         </div>
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>จะเข้าตรวจทุกๆ X วัน</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;">*</span>
                             <input type="number" class="form-control" placeholder="กรอกจำนวนวัน..." name="status"
                                 [(ngModel)]="ngCreate.day" [ngClass]="{'is-invalid': isCheck&&!ngCreate.day}">
                         </div>
@@ -125,7 +126,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>ละติจูด</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;">*</span>
                             <input type="text" class="form-control" placeholder="ละติจูด..." name="ละติจูด"
                                 [(ngModel)]="ngCreate.la" [ngClass]="{'is-invalid': isCheck&&!ngCreate.la}">
                         </div>
@@ -133,7 +134,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>ลองจิจูด</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;">*</span>
                             <input type="text" class="form-control" placeholder="ลองจิจูด..." name="ลองจิจูด"
                                 [(ngModel)]="ngCreate.long" [ngClass]="{'is-invalid': isCheck&&!ngCreate.long}">
                         </div>

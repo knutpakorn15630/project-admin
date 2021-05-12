@@ -76,7 +76,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label >ชื่อ</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;" >*</span>
                             <input type="text" class="form-control" placeholder="ชื่อ..." name="name"
                                 [(ngModel)]="ngMember.name" [ngClass]="{'is-invalid': isCheck&&!ngMember.name}">
                         </div>
@@ -84,7 +84,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>นามสกุล</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;" >*</span>
                             <input type="text" class="form-control" placeholder="นามสกุล..." name="lastName"
                                 [(ngModel)]="ngMember.lastName" [ngClass]="{'is-invalid': isCheck&&!ngMember.lastName}">
                         </div>
@@ -96,7 +96,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Username</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed === true" style="color: red;" >*</span>
                             <input type="text" class="form-control" placeholder="Username..." name="username"
                                 [(ngModel)]="ngMember.user" [ngClass]="{'is-invalid': isCheck&&!ngMember.user}">
                         </div>
@@ -104,7 +104,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Password</label>
-                            <span *ngIf="isCheck === true" style="color: red;" >*</span>
+                            <span *ngIf="CheckRed  === true" style="color: red;" >*</span>
                             <input type="password" class="form-control" placeholder="Password..." name="password"
                                 [(ngModel)]="ngMember.pass" [ngClass]="{'is-invalid': isCheck&&!ngMember.pass}">
                         </div>

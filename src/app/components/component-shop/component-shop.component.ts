@@ -19,6 +19,7 @@ export class ComponentShopComponent implements OnInit {
   GetTestStatus: ResStatus = null;
 
   isCheck = false;
+  CheckRed = true;
 
   ngPang = {
     perPage: 10,
@@ -155,8 +156,8 @@ export class ComponentShopComponent implements OnInit {
             icon: 'success',
             title: 'เพิ่มข้อมูลสำเร็จ'
           });
-          this.isCheck = false;
           this.Data = res;
+          this.isCheck = false;
           this.loadDataShop();
           this.clearForm();
           this.hideModal();

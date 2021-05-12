@@ -41,6 +41,8 @@ export class ComponentUserComponent implements OnInit {
 
   isCheck = false;
 
+  CheckRed = true;
+
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
