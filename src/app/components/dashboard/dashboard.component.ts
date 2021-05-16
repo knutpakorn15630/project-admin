@@ -26,6 +26,11 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+
+  data = {
+    message: 'ออกจากระบบ'
+  };
+
   constructor(
     private callApi: ApiserviceService,
     private serviceLogin: ServiceLoginService,
@@ -47,6 +52,7 @@ export class DashboardComponent implements OnInit {
 
       },
       (err) => {
+        this.broadcaster.emitEvent('token-logout', this.data);
         this.router.navigateByUrl('login');
         this.serviceLogin.clearLogin();
       }

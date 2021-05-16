@@ -24,60 +24,60 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.tokenLogin = this.broadcaster.listen('token-login').subscribe((res) => {
-    //   console.log('token-login');
-    //   this.intervalRefaceTokenStart();
-    //   this.resetToken();
-    // });
-    // this.tokenLogout = this.broadcaster.listen('token-logout').subscribe((res) => {
-    //   console.log('token-logout');
-    //   this.intervalRefaceTokenClear();
-    // });
+    this.tokenLogin = this.broadcaster.listen('token-login').subscribe((res) => {
+      console.log('token-login เข้า refresh');
+      this.intervalRefaceTokenStart();
+      // this.resetToken();
+    });
+
+    this.tokenLogout = this.broadcaster.listen('token-logout').subscribe((res) => {
+      console.log('token-logout', res);
+      this.intervalRefaceTokenClear();
+    });
   }
 
   ngOnDestroy() {
-    // this.tokenLogin.unsubscribe();
-    // this.tokenLogout.unsubscribe();
+    this.tokenLogin.unsubscribe();
+    this.tokenLogout.unsubscribe();
   }
 
-  // intervalRefaceTokenStart() {
-  //   if (this.intervalTime) {
-  //     return;
-  //   }
-  //   this.intervalTime = setInterval(() => {
-  //     const loginData = this.serviceLogin.getLogin();
-  //     if (!loginData) {
-  //       this.intervalRefaceTokenClear();
-  //     }
-  //     const jwt: any = jwt_decode(JSON.stringify(loginData));
+  intervalRefaceTokenStart() {
+    if (this.intervalTime) {
+      return;
+    }
+    this.intervalTime = setInterval(() => {
+      const loginData = this.serviceLogin.getLogin();
+      if (!loginData) {
+        this.intervalRefaceTokenClear();
+      }
+      const jwt: any = jwt_decode(JSON.stringify(loginData));
 
-  //     const now = moment();
-  //     const then = moment.unix(jwt.exp).subtract(5, 'minute'); // time - 5m
-  //     if (now.isAfter(then)) {
-  //       this.resetToken();
-  //     }
-  //   }, 1000000);
-  // }
+      const now = moment();
+      const then = moment.unix(jwt.exp).subtract(5, 'minute'); // time - 5m
+      this.resetToken(loginData.refreshToken);
+    }, 1680000);
+  }
 
-  // intervalRefaceTokenClear() {
-  //   if (this.intervalTime != null) {
-  //     this.intervalTime = null;
-  //     clearInterval(this.intervalTime);
-  //   }
-  // }
+  intervalRefaceTokenClear() {
+    if (this.intervalTime != null) {
+      this.intervalTime = null;
+      clearInterval(this.intervalTime);
+    }
+  }
 
-  // resetToken() {
-  //   const loginData = this.serviceLogin.Token();
-  //   const body: ReqRefreshToken = {
-  //     refreshToken: loginData.refreshToken,
-  //   };
-  //   this.callApi.refreshToken(body).subscribe(
-  //     (res) => {
-  //       this.serviceLogin.accessToken(res.accessToken);
-  //     },
-  //     (err) => {
-  //       this.intervalRefaceTokenClear();
-  //     },
-  //   );
-  // }
+  resetToken(Token: string) {
+    const loginData = Token;
+    const body: ReqRefreshToken = {
+      refreshToken: loginData,
+    };
+    this.callApi.refreshToken(body).subscribe(
+      (res) => {
+        this.serviceLogin.accessToken(res.accessToken);
+        console.log(`this refresh token ${this.serviceLogin.getLogin().accessToken}`);
+      },
+      (err) => {
+        this.intervalRefaceTokenClear();
+      },
+    );
+  }
 }
