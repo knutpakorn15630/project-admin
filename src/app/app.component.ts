@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.callApi.refreshToken(body).subscribe(
       (res) => {
         this.serviceLogin.accessToken(res.accessToken);
-        console.log(`this refresh token ${this.serviceLogin.getLogin().accessToken}`);
+        // console.log(`this refresh token ${this.serviceLogin.getLogin().accessToken}`);
       },
       (err) => {
         this.intervalRefaceTokenClear();
